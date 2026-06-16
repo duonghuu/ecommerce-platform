@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Ecommerce Platform API
+  version: 1.0.0
+paths:
+  /api/v1/home:
+    get:
+      summary: Fetch Home Data
+      description: Trả về toàn bộ dữ liệu cần thiết (Banners, Categories, Featured Products, Social Proof) để render Frontend ngay lập tức.
+      operationId: getHomeData
+      tags:
+        - Home
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      heroBanners:
+                        type: array
+                        items:
+                          type: object
+                      featuredCategories:
+                        type: array
+                        items:
+                          type: object
+                      featuredProducts:
+                        type: array
+                        items:
+                          type: object
+                      socialProof:
+                        type: object
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Không thể tải dữ liệu trang chủ lúc này. Vui lòng thử lại sau.
+                  code:
+                    type: string
+                    example: INTERNAL_SERVER_ERROR
+      x-implementation:
+        filePath: apps/backend/src/modules/home/home.controller.ts
+
+  /api/v1/products:
+    get:
+      summary: Lấy danh sách sản phẩm
+      description: Lấy danh sách sản phẩm, hỗ trợ Query Params để lọc và sắp xếp.
+      operationId: getProducts
+      tags:
+        - Products
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: categoryId
+          in: query
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            default: latest
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/products/products.controller.ts
+
+  /api/v1/categories:
+    get:
+      summary: Lấy danh sách danh mục
+      description: Lấy danh sách Category (dạng list) để render bộ lọc bên trái.
+      operationId: getCategories
+      tags:
+        - Categories
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/categories.controller.ts
+
+  /api/v1/banners:
+    get:
+      summary: Lấy danh sách banner
+      description: Lấy danh sách banner theo vị trí.
+      operationId: getBanners
+      tags:
+        - Banners
+      parameters:
+        - name: position
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/banners/banners.controller.ts

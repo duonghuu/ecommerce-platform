@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TechBite Pro | Nạp Năng Lượng - Code Phê Hơn</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border {
+            position: relative;
+        }
+        .active-nav-border::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #9d4300;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "primary": "#9d4300",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-background": "#191c1d",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#dae2fd",
+                        "secondary": "#565e74",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "tertiary": "#505f76",
+                        "surface-tint": "#9d4300",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#783200",
+                        "outline-variant": "#e0c0b1",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#582200",
+                        "secondary-fixed": "#dae2fd",
+                        "on-primary-fixed": "#341100",
+                        "surface-dim": "#d9dadb",
+                        "primary-fixed": "#ffdbca",
+                        "background": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container": "#edeeef",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary-fixed": "#131b2e",
+                        "error": "#ba1a1a",
+                        "primary-container": "#f97316",
+                        "surface": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "inverse-primary": "#ffb690",
+                        "tertiary-container": "#8c9cb4",
+                        "on-tertiary-container": "#243348",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#584237",
+                        "outline": "#8c7164"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface sticky top-0 z-50 border-b border-surface-variant transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-[1440px] mx-auto h-20">
+<!-- Brand -->
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-headline-md font-bold text-primary">TechBite Pro</span>
+<!-- Search Bar (on_left as per JSON) -->
+<div class="hidden md:flex items-center bg-surface-container-low px-sm py-xs rounded border border-surface-variant w-80 group focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-secondary mr-xs">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full placeholder:text-secondary" placeholder="Tìm món ngon tiếp thêm code..." type="text"/>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="hidden lg:flex items-center gap-md">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Menu</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Catering</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Rewards</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Orders</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Tech Gear</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Support</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs text-secondary hover:text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-md text-label-md hidden md:inline">Cart</span>
+</button>
+<button class="flex items-center gap-xs bg-primary text-on-primary px-md py-xs rounded font-label-md text-label-md hover:bg-surface-tint transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="hidden md:inline">Sign In</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-[1440px] mx-auto px-margin-desktop pb-xl">
+<!-- Hero Section -->
+<section class="mt-md rounded-xl overflow-hidden relative min-h-[520px] flex items-center group">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-end modern workstation with dual monitors showing lines of code, situated next to a gourmet spread of premium food including a sleek burger and a glowing iced drink. The lighting is low-key with warm orange accents from the keyboard backlight, creating a focused and high-performance atmosphere. The background is a clean, minimalist office environment with subtle industrial textures. The overall mood is sophisticated, energetic, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-lIVCBgfVWQuIhuzmdDT5DVAJ-HFd8WlT8uwrl_Tx5__cnGBW4-VRqg4hDbkNsY6pr1OxM4TpGMrLGCKTPCXiDnMQOXjPDUmhaQh-zqF-2_OTzTSQBdyWAr34Qd70fCwHEjRj2-iIcbxrnOW1i3Lmy4lh-2eq1lXrt-HRKanvLBrCGEzGnjMGMTxJvx0xHGyT6lfzi-x_wWzhf_r7FXjTBd2sGtaRnHTaPnMeFavJQYrWVzr8OGwBYjiBzZzsYH-Ffh1DCeW6gcxl"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+</div>
+<div class="relative z-10 pl-xl max-w-2xl">
+<div class="inline-block bg-primary-container px-sm py-1 rounded text-on-primary-container font-label-md text-label-md mb-md">
+                    #TECHBITEPOWERUP
+                </div>
+<h1 class="font-headline-xl text-headline-xl text-white mb-md leading-tight">
+                    Nạp Năng Lượng<br/>— Code Phê Hơn
+                </h1>
+<p class="text-white/80 font-body-lg text-body-lg mb-lg max-w-md">
+                    Đặc quyền cho dân Tech: Đồ ăn chuẩn SEO, đồ uống mượt như code, giao hàng nhanh như build production.
+                </p>
+<div class="flex items-center gap-md">
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-headline-sm text-headline-sm hover:bg-orange-600 transition-all active:scale-95">
+                        Mua ngay
+                    </button>
+<button class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-lg py-sm rounded-lg font-headline-sm text-headline-sm hover:bg-white/20 transition-all">
+                        Xem thực đơn
+                    </button>
+</div>
+</div>
+</section>
+<!-- Delivery Promise Banner -->
+<section class="mt-lg py-md px-xl bg-surface-container-highest border border-surface-variant rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="bg-primary text-on-primary p-sm rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Giao hàng 15p</h3>
+<p class="text-secondary font-body-md text-body-md">Nhanh hơn một lệnh 'git push' thất bại.</p>
+</div>
+</div>
+<div class="h-10 w-px bg-surface-variant hidden md:block"></div>
+<div class="hidden md:flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="font-body-md text-body-md text-on-surface">Đảm bảo độ tươi 100%</span>
+</div>
+<div class="h-10 w-px bg-surface-variant hidden md:block"></div>
+<div class="hidden md:flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">support_agent</span>
+<span class="font-body-md text-body-md text-on-surface">Support 24/7 Dev team</span>
+</div>
+</section>
+<!-- Category Grid -->
+<section class="mt-xl">
+<div class="flex items-end justify-between mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Danh mục nạp mana</h2>
+<p class="text-secondary font-body-md text-body-md">Chọn loại nguyên liệu phù hợp với stack của bạn.</p>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+                    Xem tất cả <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Category Item -->
+<div class="group bg-white border border-slate-200 p-lg rounded-xl hover:border-primary transition-all cursor-pointer text-center">
+<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-md group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-4xl text-slate-600 group-hover:text-on-primary-container">cookie</span>
+</div>
+<span class="font-headline-sm text-headline-sm block text-on-surface">Snacks</span>
+<span class="text-label-md text-secondary block mt-1">45+ sản phẩm</span>
+</div>
+<div class="group bg-white border border-slate-200 p-lg rounded-xl hover:border-primary transition-all cursor-pointer text-center">
+<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-md group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-4xl text-slate-600 group-hover:text-on-primary-container">local_bar</span>
+</div>
+<span class="font-headline-sm text-headline-sm block text-on-surface">Đồ uống</span>
+<span class="text-label-md text-secondary block mt-1">32+ sản phẩm</span>
+</div>
+<div class="group bg-white border border-slate-200 p-lg rounded-xl hover:border-primary transition-all cursor-pointer text-center">
+<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-md group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-4xl text-slate-600 group-hover:text-on-primary-container">nutrition</span>
+</div>
+<span class="font-headline-sm text-headline-sm block text-on-surface">Trái cây</span>
+<span class="text-label-md text-secondary block mt-1">18+ sản phẩm</span>
+</div>
+<div class="group bg-white border border-slate-200 p-lg rounded-xl hover:border-primary transition-all cursor-pointer text-center relative overflow-hidden">
+<div class="absolute top-2 right-2 bg-error text-white text-[10px] px-2 py-0.5 rounded-full">HOT</div>
+<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-md group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-4xl text-slate-600 group-hover:text-on-primary-container">inventory_2</span>
+</div>
+<span class="font-headline-sm text-headline-sm block text-on-surface">Combo Deadline</span>
+<span class="text-label-md text-secondary block mt-1">12+ bộ sản phẩm</span>
+</div>
+</div>
+</section>
+<!-- Trending Section -->
+<section class="mt-xl">
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-sm">
+                    Món ngon đang trending
+                    <span class="inline-block w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+</h2>
+<div class="flex gap-xs">
+<button class="w-10 h-10 border border-slate-200 rounded-full flex items-center justify-center hover:bg-slate-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 border border-slate-200 rounded-full flex items-center justify-center hover:bg-slate-50">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Food Card 1 -->
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition-all group">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A close-up high-resolution image of Vietnamese spicy shredded chicken with lime leaves, known as Khô Gà Lá Chanh. The chicken is golden-brown and textured, interspersed with vibrant green kaffir lime leaves and bright red dried chili peppers. The lighting is studio-quality, highlighting the glistening spices and crispy texture. The background is a clean slate-gray surface, maintaining a professional and appetizing aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLOdLprwLFM2xAwsPdSJUakEWSZXuuOgvtGnYYIwniE5Z34SYekMMSehDGr0qLUlKNQ90i4BK_kHUAJMK1Um0Gx8cM5BP_o0zedz0ewXW8Vxv_YRXP0_liM6k8UcE3dxqxpHlrpPJ0fLtknUpG0sNAEwEp-RHuWj4mqQZQNlNOYwmCamYgYcuzV8vLDW1NAAzfKGFLJXERQegJU9EbP3zJTSRMyENXST7u0cxVDrJLFTZceCpxPYZyecbj6ufcystCSZYzr4nPYlwa"/>
+<div class="absolute top-xs left-xs bg-white/90 backdrop-blur px-xs py-1 rounded text-label-md font-label-md text-primary">Best Seller</div>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Khô Gà Lá Chanh</h3>
+<p class="text-secondary text-body-md line-clamp-1 mb-md">Cay nhẹ, giòn rụm, cứu tinh đêm code.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-slate-900 text-headline-sm">45.000đ</span>
+<button class="bg-slate-900 text-white w-10 h-10 rounded-lg flex items-center justify-center hover:bg-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Food Card 2 -->
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition-all group">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A premium glass of Roasted Oolong Milk Tea with a thick layer of creamy cheese foam on top, drizzled with dark brown sugar syrup. The tea has a rich amber color with ice cubes visible. The setting is a modern minimalist cafe with soft natural lighting from a nearby window. The background is slightly blurred, showing a clean white marble tabletop and a hint of a green plant. The aesthetic is clean, trendy, and high-contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDitx6Hs5F69crbqgAAChw4XYMefzXDgkfExGWGX95MJGjj6Qjrtcgs46GxQtHmiVK6AjvZGDte4pCSkKCLFmYPY5Ldw5eWiYvtc1KqI_T_w0Ot0TS-jmLToUQmSWBReeaGMpTetJ0xgNUxVJQH8-5pDUjhhOayKg_LKPD6-efknO5R796jgJMKOoP2Y0yWpYNC4QngwLEJrow763grSitpv_qXdv2e-aqC33SlOEfgsETeIQx-zU6mriLQfCAdw0Z9lIcEI8qvdeoy"/>
+<div class="absolute top-xs left-xs bg-white/90 backdrop-blur px-xs py-1 rounded text-label-md font-label-md text-primary">New Trend</div>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Trà Sữa Oolong Nướng</h3>
+<p class="text-secondary text-body-md line-clamp-1 mb-md">Đậm vị trà, thơm vị nướng, tỉnh táo tức thì.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-slate-900 text-headline-sm">55.000đ</span>
+<button class="bg-slate-900 text-white w-10 h-10 rounded-lg flex items-center justify-center hover:bg-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Food Card 3 -->
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition-all group">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A gourmet Beef Cheeseburger presented on a wooden board. The burger features a juicy, thick beef patty, melted sharp cheddar cheese, fresh green lettuce, a slice of ripe red tomato, and caramelized onions, all inside a toasted brioche bun. The lighting is warm and dramatic, accentuating the textures of the meat and the sheen of the cheese. The background is a dark, professional kitchen interior. High-end food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkR7mVuDw5ELOfeHR5cOI5wUTLPVH14AzC_25MksfPCheyMJy2KKxEjnu3d1yODcdfmAVteDZqyLQi9Z59Tz6A9rpKXG0vQiUOtiY-9r-nwzl773SPJdmrIxHI7qXqk4O6zqM6-SSK6o5ohkmwv4L5vEt4qWtXO42s0LH3-rG14408szlraaLuRV3L4k6fIiVu1j2MsEItBaJJv56UbuHQmpVt3qjboZq2b-1cEWwI5NLpGUGDJvRCjE4KOOcRD7sQ7c51SMEvDAl3"/>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Burger Bò Phô Mai</h3>
+<p class="text-secondary text-body-md line-clamp-1 mb-md">Full option đạm cho task khó.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-slate-900 text-headline-sm">89.000đ</span>
+<button class="bg-slate-900 text-white w-10 h-10 rounded-lg flex items-center justify-center hover:bg-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Food Card 4 -->
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition-all group">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A vibrant and colorful Salad Quy Nhon bowl containing fresh local greens, boiled shrimp, sliced squid, crunchy nuts, and a signature Vietnamese dressing on the side. The bowl is ceramic and artisanal. The lighting is bright and airy, reflecting a healthy and clean lifestyle. The background is a light wood texture, evoking a fresh and natural feel. The composition is balanced and extremely appetizing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPo5RRkgvBTNqg0cUfFAzAtHF9w2TeFE0flFmAc9MGTiykMKGHTKhIJBxnd8JlI8o_wSBGIj0QmqgCs72pbz2PV8IsQJb6T627yfa6Lknt-I62rDjzeElaJOFCuQmuz7IBLY3AE1mRn-JWQS04N732MeScT-n5q68K-GF9Air3E1iafMLV21xsImrb05fCTaFe83XNRSG5bnvWrqpZfEFOoczGQrXI8XAEbxytY8bkqHZ2Me0b_CpD-_f8BxspiovPFGE07EC7BvLT"/>
+</div>
+<div class="p-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Salad Quy Nhơn</h3>
+<p class="text-secondary text-body-md line-clamp-1 mb-md">Tươi mát, cân bằng hệ sinh thái cơ thể.</p>
+<div class="flex items-center justify-between">
+<span class="font-bold text-slate-900 text-headline-sm">65.000đ</span>
+<button class="bg-slate-900 text-white w-10 h-10 rounded-lg flex items-center justify-center hover:bg-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TechBite Elite Membership Section -->
+<section class="mt-xl bg-slate-900 text-white rounded-2xl p-xl flex flex-col lg:flex-row items-center justify-between gap-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<path d="M0,50 Q25,0 50,50 T100,50" fill="none" stroke="white" stroke-width="0.5"></path>
+<path d="M0,60 Q25,10 50,60 T100,60" fill="none" stroke="white" stroke-width="0.5"></path>
+<path d="M0,40 Q25,-10 50,40 T100,40" fill="none" stroke="white" stroke-width="0.5"></path>
+</svg>
+</div>
+<div class="relative z-10 lg:w-1/2">
+<h2 class="font-headline-lg text-headline-lg mb-md">Gia nhập TechBite Elite</h2>
+<p class="text-slate-400 font-body-lg text-body-lg mb-lg">
+                    Nhận ngay coupon 50k cho đơn hàng đầu tiên và truy cập kho "Best-seller" giới hạn chỉ dành riêng cho hội viên Elite.
+                </p>
+<div class="flex flex-wrap gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="text-label-md text-slate-300">Free ship 5km</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="text-label-md text-slate-300">Hoàn tiền 5%</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="text-label-md text-slate-300">Menu ẩn cho Dev</span>
+</div>
+</div>
+</div>
+<div class="relative z-10 w-full lg:w-auto bg-white/5 backdrop-blur-lg border border-white/10 p-md rounded-xl">
+<form class="flex flex-col md:flex-row gap-sm">
+<input class="bg-white/10 border border-white/20 text-white px-md py-sm rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none min-w-[300px]" placeholder="Email công ty của bạn..." type="email"/>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-headline-sm text-headline-sm hover:bg-orange-600 transition-all whitespace-nowrap">
+                        Đăng ký ngay
+                    </button>
+</form>
+<p class="text-slate-500 text-[10px] mt-xs text-center">Bằng cách đăng ký, bạn đồng ý với Điều khoản của TechBite.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-surface-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-md px-margin-desktop py-lg max-w-[1440px] mx-auto">
+<!-- Brand Column -->
+<div class="lg:col-span-2">
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface">TechBite Pro</span>
+<p class="mt-md text-secondary font-body-md text-body-md">
+                    Nền tảng cung cấp dinh dưỡng và năng lượng tối ưu cho cộng đồng lập trình viên Việt Nam. Tăng tốc hiệu suất, giảm thiểu bug.
+                </p>
+<div class="flex gap-sm mt-md">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+</div>
+<!-- Links Column 1 -->
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-md">Công ty</h4>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Partner with Us</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Press</a></li>
+</ul>
+</div>
+<!-- Links Column 2 -->
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-md">Pháp lý</h4>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Accessibility</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+<!-- Links Column 3 -->
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-md">Hỗ trợ</h4>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Trung tâm trợ giúp</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Liên hệ Dev Team</a></li>
+<li><a class="text-secondary font-body-md text-body-md hover:text-primary transition-colors" href="#">Phản hồi</a></li>
+</ul>
+</div>
+<!-- Newsletter/App -->
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-md">Tải ứng dụng</h4>
+<div class="flex flex-col gap-sm">
+<div class="bg-on-surface text-white px-md py-xs rounded flex items-center gap-xs cursor-pointer hover:bg-slate-800">
+<span class="material-symbols-outlined">phone_iphone</span>
+<span class="text-label-md">App Store</span>
+</div>
+<div class="bg-on-surface text-white px-md py-xs rounded flex items-center gap-xs cursor-pointer hover:bg-slate-800">
+<span class="material-symbols-outlined">shop</span>
+<span class="text-label-md">Google Play</span>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-surface-variant max-w-[1440px] mx-auto px-margin-desktop py-md flex flex-col md:flex-row justify-between items-center text-secondary">
+<span class="text-label-md">© 2024 TechBite Pro. Optimized for performance.</span>
+<div class="flex gap-md mt-sm md:mt-0">
+<span class="flex items-center gap-xs text-label-md"><span class="w-2 h-2 rounded-full bg-green-500"></span> System Status: Online</span>
+<span class="text-label-md">v2.4.0-stable</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and scroll effects
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('shadow-md', 'h-16');
+                    navbar.classList.remove('h-20');
+                } else {
+                    navbar.classList.remove('shadow-md', 'h-16');
+                    navbar.classList.add('h-20');
+                }
+            });
+
+            // Smooth scaling for buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+                btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+                btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+            });
+        });
+    </script>
+</body></html>
