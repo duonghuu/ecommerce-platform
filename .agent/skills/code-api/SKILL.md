@@ -32,5 +32,4 @@ Khi sinh code, BẮT BUỘC áp dụng các lớp phòng thủ sau:
 ## 4. XUẤT BÁO CÁO VÀ TÀI LIỆU API (API SPECS)
 - Sau khi ghi file code thành công, BẮT BUỘC tự động tạo hoặc cập nhật file `.docs/api-endpoints.yaml` để lưu trữ danh sách các API vừa được tạo.
 - Định dạng file YAML phải tuân thủ cấu trúc rõ ràng, bao gồm: Path, Method, Payload (Request), Response (Success/Error), và Đường dẫn file code vật lý tương ứng.
-- Liệt kê danh sách các endpoint đã xây dựng ghi vào file `.docs/endpoint-apis/[Tên plan].md`
 - **Tại giao diện chat:** Chỉ cần in ra một thông báo ngắn kèm đường dẫn tới file YAML vừa tạo để người dùng biết hệ thống đã hoàn thành.
