@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Banner {
+  id         String    @id @default(uuid())
+  title      String
+  subtitle   String?
+  imageUrl   String
+  targetUrl  String?
+  position   String
+  isActive   Boolean   @default(true)
+  startDate  DateTime?
+  endDate    DateTime?
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  @@index([position])
+  @@map("banners")
+}
+
+model Category {
+  id           String    @id @default(uuid())
+  parentId     String?
+  name         String
+  slug         String    @unique
+  iconUrl      String
+  isFeatured   Boolean   @default(false)
+  displayOrder Int       @default(0)
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  parent       Category?  @relation("CategoryToCategory", fields: [parentId], references: [id], onDelete: Cascade)
+  children     Category[] @relation("CategoryToCategory")
+  products     Product[]
+
+  @@index([isFeatured])
+  @@index([parentId])
+  @@map("categories")
+}
+
+model Product {
+  id           String    @id @default(uuid())
+  categoryId   String
+  name         String
+  slug         String    @unique
+  price        Decimal   @db.Decimal(10, 2)
+  salePrice    Decimal?  @db.Decimal(10, 2)
+  thumbnailUrl String
+  stock        Int       @default(0)
+  salesCount   Int       @default(0)
+  isFeatured   Boolean   @default(false)
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  category     Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+  @@index([salesCount])
+  @@index([isFeatured])
+  @@map("products")
+}
