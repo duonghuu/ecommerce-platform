@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useCartStore } from '@/store/cartStore';
 
 export interface Product {
   id: string;
@@ -14,10 +15,21 @@ export interface Product {
 export interface ProductCardProps {
   product: Product;
   isAddingToCart?: boolean;
-  onAddToCart?: (productId: string) => void;
 }
 
-export function ProductCard({ product, isAddingToCart, onAddToCart }: ProductCardProps) {
+export function ProductCard({ product, isAddingToCart }: ProductCardProps) {
+  const addItem = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      thumbnailUrl: product.imageUrl,
+    });
+  };
+
   return (
     <div className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition-all group flex flex-col h-full">
       <div className="h-48 overflow-hidden relative">
@@ -44,7 +56,7 @@ export function ProductCard({ product, isAddingToCart, onAddToCart }: ProductCar
             {product.price.toLocaleString("vi-VN")}đ
           </span>
           <button
-            onClick={() => onAddToCart && onAddToCart(product.id)}
+            onClick={handleAddToCart}
             disabled={isAddingToCart}
             className="bg-slate-900 text-white w-10 h-10 rounded-lg flex items-center justify-center hover:bg-primary transition-colors active:scale-90 disabled:opacity-50"
           >

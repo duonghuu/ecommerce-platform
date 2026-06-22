@@ -3,10 +3,9 @@ import { ProductCard, Product } from '@/components/ui/ProductCard';
 
 export interface ProductGridProps {
   products: Product[];
-  onAddToCart: (productId: string) => void;
 }
 
-export function ProductGrid({ products, onAddToCart }: ProductGridProps) {
+export function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="w-full py-xl flex flex-col items-center justify-center text-slate-500">
@@ -22,7 +21,6 @@ export function ProductGrid({ products, onAddToCart }: ProductGridProps) {
         <ProductCard
           key={product.id}
           product={product}
-          onAddToCart={onAddToCart}
         />
       ))}
     </div>

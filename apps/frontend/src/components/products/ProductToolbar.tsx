@@ -1,23 +1,35 @@
+'use client';
+
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useFilter } from './ProductLayoutWrapper';
 
 export interface ProductToolbarProps {
   totalItems: number;
-  isFilterVisible: boolean;
-  currentSort: string;
-  onToggleFilter: () => void;
-  onSortChange: (sortValue: string) => void;
 }
 
-export function ProductToolbar({ totalItems, isFilterVisible, currentSort, onToggleFilter, onSortChange }: ProductToolbarProps) {
+export function ProductToolbar({ totalItems }: ProductToolbarProps) {
+  const { isVisible, toggle } = useFilter();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentSort = searchParams.get('sort') || 'newest';
+
+  const onSortChange = (sortValue: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('sort', sortValue);
+    params.delete('page');
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-sm mb-md bg-white p-sm rounded-xl border border-slate-200">
       <div className="flex items-center gap-sm">
         <button
-          onClick={onToggleFilter}
+          onClick={toggle}
           className="flex items-center gap-xs text-slate-600 hover:text-slate-900 transition-colors font-body-md"
         >
           <span className="material-symbols-outlined text-lg">
-            {isFilterVisible ? 'filter_list_off' : 'filter_list'}
+            {isVisible ? 'filter_list_off' : 'filter_list'}
           </span>
           <span className="hidden sm:inline">Bộ lọc</span>
         </button>

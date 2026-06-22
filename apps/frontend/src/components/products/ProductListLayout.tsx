@@ -1,27 +1,12 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { SidebarFilter } from './SidebarFilter';
 import { ProductMainArea } from './ProductMainArea';
+import { ProductLayoutWrapper } from './ProductLayoutWrapper';
 
-export function ProductListLayout() {
-  const [isFilterVisible, setIsFilterVisible] = useState(true);
-
-  const toggleFilter = () => {
-    setIsFilterVisible(!isFilterVisible);
-  };
-
+export function ProductListLayout({ products, pagination, categories, totalItems }: any) {
   return (
-    <div className="flex flex-col md:flex-row gap-lg items-start">
-      {isFilterVisible && (
-        <div className="w-full md:w-64 flex-shrink-0 transition-all duration-300 origin-left">
-          <SidebarFilter />
-        </div>
-      )}
-      <ProductMainArea 
-        isFilterVisible={isFilterVisible} 
-        onToggleFilter={toggleFilter} 
-      />
-    </div>
+    <ProductLayoutWrapper sidebar={<SidebarFilter categories={categories} />}>
+      <ProductMainArea products={products} pagination={pagination} totalItems={totalItems} />
+    </ProductLayoutWrapper>
   );
 }

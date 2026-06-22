@@ -6,3 +6,4 @@
 - **2026-06-13 23:10**: Đã hoàn thành API Trang chủ (GET /api/v1/home) từ home-plan.md, kết nối Prisma, thiết lập Module, và cập nhật tài liệu api-endpoints.yaml.
 - **2026-06-15 23:23**: Đã xây dựng cụm API cho trang Product List (products, categories, banners) bằng NestJS, tích hợp Zod validation, Prisma ORM và tài liệu YAML.
 - **2026-06-21 02:35**: Tích hợp thành công API trang chủ, xử lý Kiềng 3 chân (Loading/Error/Success), sửa lỗi ảnh Banner và thêm 'use client' cho SocialProofBanner.
+- **2026-06-23 00:35**: Tái cấu trúc UI Product List sang Server Component, tích hợp API products/categories/banners với xử lý Loading/Error, và fix lỗi searchParams.
