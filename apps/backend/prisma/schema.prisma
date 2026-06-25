@@ -60,6 +60,11 @@ model Product {
   salesCount   Int       @default(0)
   isFeatured   Boolean   @default(false)
 
+  shortDescription String?   @db.Text
+  description      String?   @db.LongText
+  images           Json?
+  badgeText        String?   @db.VarChar(50)
+
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   deletedAt    DateTime?

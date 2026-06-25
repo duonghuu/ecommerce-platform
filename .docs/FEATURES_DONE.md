@@ -7,3 +7,4 @@
 - **2026-06-15 23:23**: Đã xây dựng cụm API cho trang Product List (products, categories, banners) bằng NestJS, tích hợp Zod validation, Prisma ORM và tài liệu YAML.
 - **2026-06-21 02:35**: Tích hợp thành công API trang chủ, xử lý Kiềng 3 chân (Loading/Error/Success), sửa lỗi ảnh Banner và thêm 'use client' cho SocialProofBanner.
 - **2026-06-23 00:35**: Tái cấu trúc UI Product List sang Server Component, tích hợp API products/categories/banners với xử lý Loading/Error, và fix lỗi searchParams.
+- **2026-06-26 02:12**: Đã hoàn thành Backend Plan, mở rộng Product Schema, viết API Product Detail, và code thành công màn hình ProductDetailPage tích hợp MasterLayout chuẩn NextJS 15.

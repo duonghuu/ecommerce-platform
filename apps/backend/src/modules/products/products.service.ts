@@ -52,4 +52,34 @@ export class ProductsService {
       },
     };
   }
+
+  async getOneProduct(id: string) {
+    const product = await this.prisma.product.findUnique({
+      where: { id },
+      include: {
+        category: {
+          select: { id: true, name: true, slug: true }
+        }
+      }
+    });
+    return product;
+  }
+
+  async getRelatedProducts(id: string, limit: number = 4) {
+    const product = await this.prisma.product.findUnique({
+      where: { id },
+      select: { categoryId: true }
+    });
+
+    if (!product) return [];
+
+    return this.prisma.product.findMany({
+      where: {
+        categoryId: product.categoryId,
+        id: { not: id }
+      },
+      take: limit,
+      orderBy: { salesCount: 'desc' }
+    });
+  }
 }
