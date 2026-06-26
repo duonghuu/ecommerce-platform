@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "../../store/cartStore";
+import GlobalSearch from "../ui/GlobalSearch";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,13 +47,8 @@ export default function Header() {
           </Link>
 
           {/* Search Bar (Desktop) */}
-          <div className="hidden md:flex items-center bg-surface-container-low px-sm py-xs rounded border border-surface-variant w-80 group focus-within:border-primary transition-all">
-            <span className="material-symbols-outlined text-secondary mr-xs">search</span>
-            <input
-              className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full placeholder:text-secondary outline-none"
-              placeholder="Tìm món ngon tiếp thêm code..."
-              type="text"
-            />
+          <div className="hidden md:block">
+            <GlobalSearch />
           </div>
         </div>
 
@@ -104,13 +100,8 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-surface border-b border-surface-variant shadow-lg py-sm px-margin-mobile flex flex-col gap-sm">
           {/* Mobile Search */}
-          <div className="flex md:hidden items-center bg-surface-container-low px-sm py-xs rounded border border-surface-variant w-full focus-within:border-primary transition-all mb-xs">
-            <span className="material-symbols-outlined text-secondary mr-xs">search</span>
-            <input
-              className="bg-transparent border-none focus:ring-0 font-body-md text-body-md w-full placeholder:text-secondary outline-none"
-              placeholder="Tìm món ngon tiếp thêm code..."
-              type="text"
-            />
+          <div className="flex md:hidden w-full mb-xs">
+            <GlobalSearch isMobile={true} />
           </div>
           <Link href="#" className="text-primary font-label-md text-label-md py-xs border-b border-surface-variant">
             Menu

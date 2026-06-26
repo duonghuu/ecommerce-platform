@@ -53,6 +53,39 @@ export class ProductsService {
     };
   }
 
+  async suggestProducts(query: { keyword: string; limit: number }) {
+    const { keyword, limit } = query;
+    
+    // Tìm kiếm sử dụng contains (LIKE %keyword%)
+    const products = await this.prisma.product.findMany({
+      where: {
+        name: {
+          contains: keyword,
+        }
+      },
+      take: limit,
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        images: true,
+      }
+    });
+
+    return products.map(p => {
+      let image = '';
+      if (p.images && Array.isArray(p.images) && p.images.length > 0) {
+        image = p.images[0] as string;
+      }
+      return {
+        id: p.id,
+        name: p.name,
+        price: Number(p.price),
+        image,
+      };
+    });
+  }
+
   async getOneProduct(id: string) {
     const product = await this.prisma.product.findUnique({
       where: { id },

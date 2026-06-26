@@ -128,3 +128,50 @@ paths:
           description: OK
       x-implementation:
         filePath: apps/backend/src/modules/banners/banners.controller.ts
+
+  /api/v1/products/suggest:
+    get:
+      summary: Lấy danh sách sản phẩm gợi ý
+      description: Trả về danh sách tối đa 5 sản phẩm khớp với từ khóa tìm kiếm.
+      operationId: suggestProducts
+      tags:
+        - Products
+      parameters:
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        price:
+                          type: number
+                        image:
+                          type: string
+        '500':
+          description: Internal Server Error
+      x-implementation:
+        filePath: apps/backend/src/modules/products/products.controller.ts

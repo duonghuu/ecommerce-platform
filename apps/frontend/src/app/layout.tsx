@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ReactNode } from "react";
+import QueryProvider from "../providers/QueryProvider";
 
 export const metadata = {
   title: "TechBite Pro | Nạp Năng Lượng - Code Phê Hơn",
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-background text-on-surface font-body-md overflow-x-hidden" suppressHydrationWarning>
-        {children}
+        <QueryProvider>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

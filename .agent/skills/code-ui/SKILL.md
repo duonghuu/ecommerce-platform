@@ -33,5 +33,12 @@ Tiến hành gõ code vào thư mục dự án theo các quy tắc của bản K
 3. Tối ưu: BẮT BUỘC dùng `<Image />` từ `next/image` và `<Link />` từ `next/link`.
 4. State: Ưu tiên Zustand cho Global State và Server Actions cho mutate dữ liệu.
 
+## DATA FETCHING
+- Bạn bị cấm gọi API trong bước này
+- Thay vào đó, bạn phải dùng dữ liệu giả (mock data)
+- Dữ liệu giả phải được định nghĩa bằng interface và type
+- Hình ảnh dữ liệu giả phải được lấy từ unsplash.com
+- Dữ liệu giả phải được định nghĩa ở file mock data (.json) trong thư mục `.docs/mock-data/`
+
 ## BÁO CÁO KẾT QUẢ
 Sau khi code xong, in ra danh sách các file `.tsx` vừa tạo hoặc chỉnh sửa. Hỏi người dùng xem có cần điều chỉnh padding/margin nào không trước khi chạy lệnh `/save`.
