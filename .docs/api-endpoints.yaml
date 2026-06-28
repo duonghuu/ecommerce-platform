@@ -175,3 +175,53 @@ paths:
           description: Internal Server Error
       x-implementation:
         filePath: apps/backend/src/modules/products/products.controller.ts
+
+  /api/v1/auth/register:
+    post:
+      summary: Đăng ký tài khoản
+      description: Đăng ký tài khoản khách hàng mới.
+      operationId: register
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullName:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        type: object
+                      accessToken:
+                        type: string
+                      refreshToken:
+                        type: string
+        '400':
+          description: Bad Request (Validation failed)
+        '409':
+          description: Conflict (Email already exists)
+      x-implementation:
+        filePath: apps/backend/src/modules/auth/auth.controller.ts

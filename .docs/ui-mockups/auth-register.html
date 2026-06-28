@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TechBite Pro - Đăng ký tài khoản</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e1e3e4",
+                    "on-error-container": "#93000a",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "tertiary-fixed": "#d3e4fe",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#ffb690",
+                    "surface-container-low": "#f3f4f5",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "on-primary-fixed": "#341100",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "outline": "#8c7164",
+                    "surface-tint": "#9d4300",
+                    "tertiary": "#505f76",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "on-tertiary-container": "#243348",
+                    "on-surface": "#191c1d",
+                    "inverse-surface": "#2e3132",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#5c647a",
+                    "outline-variant": "#e0c0b1",
+                    "primary-fixed": "#ffdbca",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-container": "#582200",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "on-secondary-fixed": "#131b2e",
+                    "secondary": "#565e74",
+                    "primary": "#9d4300",
+                    "tertiary-container": "#8c9cb4",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-dim": "#d9dadb",
+                    "surface-container": "#edeeef",
+                    "inverse-primary": "#ffb690",
+                    "primary-container": "#f97316",
+                    "on-primary-fixed-variant": "#783200",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-container-high": "#e7e8e9",
+                    "surface": "#f8f9fa",
+                    "secondary-container": "#dae2fd",
+                    "on-surface-variant": "#584237"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "sm": "16px",
+                    "margin-desktop": "32px",
+                    "gutter": "24px",
+                    "xl": "80px",
+                    "xs": "8px",
+                    "md": "24px",
+                    "margin-mobile": "16px",
+                    "lg": "48px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-md": ["Inter"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-headline {
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+        /* Custom scrollbar for better tech aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e0c0b1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9d4300;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-surface-variant">
+<nav class="flex justify-between items-center h-16 px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md font-bold text-primary">TechBite Pro</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md cursor-pointer" href="#">Menu</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md cursor-pointer" href="#">Corporate</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md text-label-md cursor-pointer" href="#">Support</a>
+</div>
+<div class="flex items-center">
+<button class="bg-white border border-outline-variant text-primary px-sm py-xs font-bold rounded-lg hover:bg-primary-fixed transition-all cursor-pointer active:opacity-80">
+                    Sign In
+                </button>
+</div>
+</nav>
+</header>
+<!-- Main Content: Registration Canvas -->
+<main class="flex-grow flex items-center justify-center py-xl px-margin-mobile">
+<div class="w-full max-w-[400px]">
+<!-- Auth Card -->
+<div class="bg-white rounded-2xl border border-slate-200 p-md md:p-lg shadow-sm">
+<!-- Header -->
+<div class="text-center mb-md">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-xs">Tạo tài khoản mới</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Đã có tài khoản? <a class="text-primary-container font-semibold hover:underline" href="#">Đăng nhập</a>
+</p>
+</div>
+<!-- Registration Form -->
+<form class="space-y-sm" onsubmit="event.preventDefault();">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="full_name">Họ tên</label>
+<input class="w-full px-sm py-xs bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-md text-body-md" id="full_name" placeholder="Nguyen Van A" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="phone">Số điện thoại</label>
+<input class="w-full px-sm py-xs bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-md text-body-md" id="phone" placeholder="0987654321" type="tel"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="email">Email</label>
+<input class="w-full px-sm py-xs bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-md text-body-md" id="email" placeholder="coder@techbite.vn" type="email"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="password">Mật khẩu</label>
+<div class="relative">
+<input class="w-full px-sm py-xs bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-md text-body-md" id="password" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant cursor-pointer text-[20px]">visibility</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="confirm_password">Xác nhận mật khẩu</label>
+<input class="w-full px-sm py-xs bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container outline-none transition-all font-body-md text-body-md" id="confirm_password" placeholder="••••••••" type="password"/>
+</div>
+<!-- Submit Button -->
+<div class="pt-sm">
+<button class="w-full bg-primary-container text-white font-headline-sm text-headline-sm font-bold py-sm rounded-xl hover:bg-primary transition-colors shadow-md active:scale-[0.98] transform duration-150" type="submit">
+                            Đăng ký
+                        </button>
+</div>
+<p class="text-center font-label-md text-label-md text-on-surface-variant px-sm leading-relaxed mt-md">
+                        Bằng cách nhấp vào Đăng ký, bạn đồng ý với <a class="text-primary-container hover:underline" href="#">Điều khoản</a> và <a class="text-primary-container hover:underline" href="#">Chính sách bảo mật</a> của TechBite Pro.
+                    </p>
+</form>
+</div>
+<!-- Atmospheric Hint -->
+<div class="mt-md text-center">
+<div class="inline-flex items-center gap-xs text-on-secondary-fixed-variant font-label-md text-label-md bg-secondary-fixed px-sm py-1 rounded-full border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    Hệ thống đang hoạt động tối ưu
+                </div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-surface border-t border-surface-variant">
+<div class="flex flex-col md:flex-row justify-between items-center py-md px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto gap-sm">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">TechBite Pro</span>
+<p class="font-label-md text-label-md text-on-secondary-fixed-variant mt-1">© 2024 TechBite Pro. Optimized for performance.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="font-label-md text-label-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">API Status</a>
+<a class="font-label-md text-label-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for form inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-primary-container');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-primary-container');
+            });
+        });
+
+        // Simple password visibility toggle
+        const togglePass = document.querySelector('.material-symbols-outlined');
+        if (togglePass) {
+            togglePass.addEventListener('click', function() {
+                const input = document.getElementById('password');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.textContent = 'visibility_off';
+                } else {
+                    input.type = 'password';
+                    this.textContent = 'visibility';
+                }
+            });
+        }
+    </script>
+</body></html>

@@ -9,3 +9,4 @@
 - **2026-06-23 00:35**: Tái cấu trúc UI Product List sang Server Component, tích hợp API products/categories/banners với xử lý Loading/Error, và fix lỗi searchParams.
 - **2026-06-26 02:12**: Đã hoàn thành Backend Plan, mở rộng Product Schema, viết API Product Detail, và code thành công màn hình ProductDetailPage tích hợp MasterLayout chuẩn NextJS 15.
 - **2026-06-26 22:45**: Hoàn thiện tính năng Search Suggest: tạo API (NestJS), cấu hình index Prisma, code UI (GlobalSearch) và tích hợp React Query.
+- **2026-06-28 17:29**: Đã hoàn thành API Đăng ký (`/register`), xử lý Prisma schema, tự động trả Token và lưu cookies an toàn qua Next.js Server Action.

@@ -27,6 +27,25 @@ Toàn AI Agents khi gọi API cần bắt buộc
 - Mọi ô input dùng để tìm kiếm hoặc auto-complete: bắt buộc phải có debound (delay 300ms) trước khi gọi API 
 - Thư viện bắt buộc: sử dụng custom hook useDebounce (dự án React JS) hoặc hàm debounce (dự án lodash), Cấm tự viết lại bằng setTimeOut. 
 
+7. **Quy chuẩn bảo mật**:
+
+7.1. Techstack bắt buộc:
+
+- Hashing mật khẩu: Sử dụng `bcrypt` với `saltRound` là `12`. BẠN BỊ CẤM lưu mật khẩu dạng Plain Text
+- Quản lý token: Sử dụng thư viện `jsonwebtoken` để tạo và xác thực token
+- Storage: Sử dụng `ioredis` để kết nối và thao tác với Redis Server
+
+7.2. Kỷ luật viết code
+- Quy tắc payload: BẠN BỊ CẤM trả về trường `password` hoặc các thông tin nhạy cảm trong API Response
+- Quy tắc Cookie: `Refresh Token` BẮT BUỘC phải được set vào cookie thông qua Header `Set-Cookie` với cấu hình `HTTP Only`
+- Định dạng User: BẠN BỊ CẤM tin tưởng vào trường `userId` hoặc `role` gửi từ Client Body. Việc xác định "Ai đang gọi API" BẮT BUỘC phải parse ra từ Access Token sau khi đã verify thành công
+- Không được phép lưu token lên redis mà cần phải lưu `jti`
+
+7.3. Kỷ luật viết Middleware & Redis
+- Check Blacklist: Mọi API được bảo vệ phải đi qua 1 middleware. Dòng code đầu tiên của Middleware này là xác thực token để giảm tải cho Redis, sau đó gọi lệnh `redis.get(accessToken)`. Nếu có kết quả nằm trong Blacklist -> Bắt buộc `return 401 Unauthorize` ngay lập tức
+- Quản lý TTL trên Redis: Khi đưa accessToken vào blacklist, BẮT BUỘC phải tính toán thời gian còn lại của JWT và dùng hàm `redis.setEx` để redis tự động xóa rác, tránh tràn RAM.
+- Code Refresh Token Rotation: Tại api `/refresh-token`, BẮT BUỘC phải có khối lệnh `try catch` để redis đảm bảo việc xóa Token và lưu token mới
+- Khi gọi API `/logout`, cần phải đi qua Middleware để xác thực token đó hợp lệ nhằm đảm bảo tránh bị token rác trên Redis
 
 # QUY TẮC GIAO TIẾP (NO YAPPING - TOKEN OPTIMIZATION)
 - **CẤM NÓI NHẢM:** Không chào hỏi, không nói "Chắc chắn rồi", "Tôi sẽ giúp bạn". Hãy đi thẳng vào vấn đề.

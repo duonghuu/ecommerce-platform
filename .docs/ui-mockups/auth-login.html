@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TechBite Pro - Đăng nhập</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#f97316",
+                        "on-secondary-container": "#5c647a",
+                        "background": "#f8f9fa",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary-container": "#dae2fd",
+                        "primary": "#9d4300",
+                        "inverse-surface": "#2e3132",
+                        "inverse-primary": "#ffb690",
+                        "on-tertiary-container": "#243348",
+                        "on-primary-container": "#582200",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed": "#341100",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-container": "#edeeef",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface-variant": "#584237",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e3e4",
+                        "surface": "#f8f9fa",
+                        "outline-variant": "#e0c0b1",
+                        "primary-fixed-dim": "#ffb690",
+                        "secondary-fixed": "#dae2fd",
+                        "outline": "#8c7164",
+                        "primary-fixed": "#ffdbca",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "tertiary": "#505f76",
+                        "surface-tint": "#9d4300",
+                        "surface-bright": "#f8f9fa",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-surface": "#191c1d",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#8c9cb4",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "xl": "80px",
+                        "xs": "8px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "lg": "48px",
+                        "margin-mobile": "16px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9fafb; /* bg-gray-50 */
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .auth-card {
+            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="bg-surface docked full-width top-0 border-b border-surface-variant z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-[1280px] mx-auto h-16">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">TechBite Pro</span>
+<nav class="hidden md:flex gap-md ml-lg">
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-200" href="#">Products</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-200" href="#">Solutions</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-200" href="#">Enterprise</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-200" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex items-center gap-sm">
+<button class="font-body-md text-body-md text-secondary hover:text-primary px-sm py-xs transition-colors">Login</button>
+<button class="bg-primary-container text-on-primary-container font-semibold px-md py-xs rounded-lg scale-95 active:opacity-80 transition-transform">Get Started</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center py-xl px-margin-mobile">
+<div class="auth-card bg-surface-container-lowest border border-slate-200 rounded-2xl w-full max-w-[400px] p-lg flex flex-col gap-md">
+<div class="text-center space-y-xs">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Chào mừng trở lại</h1>
+<p class="font-body-md text-body-md text-on-secondary-container">
+                    Chưa có tài khoản? 
+                    <a class="text-primary-container font-semibold hover:underline" href="#">Đăng ký ngay</a>
+</p>
+</div>
+<!-- Authentication Form -->
+<form class="space-y-md mt-sm" onsubmit="return false;">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="email">Email</label>
+<div class="relative">
+<input class="w-full bg-white border border-slate-200 rounded-lg px-md py-sm font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" id="email" placeholder="coder@techbite.vn" type="email"/>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-secondary-container opacity-40">mail</span>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<label class="block font-label-md text-label-md text-on-surface-variant" for="password">Mật khẩu</label>
+<a class="text-label-md text-primary-container hover:underline" href="#">Quên mật khẩu?</a>
+</div>
+<div class="relative">
+<input class="w-full bg-white border border-slate-200 rounded-lg px-md py-sm font-body-md text-body-md focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" id="password" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-secondary-container opacity-40">lock</span>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<input class="w-4 h-4 rounded text-primary-container border-slate-300 focus:ring-primary-container" id="remember" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface-variant select-none" for="remember">Ghi nhớ đăng nhập</label>
+</div>
+<button class="w-full bg-primary-container text-white font-semibold py-sm rounded-xl hover:bg-primary transition-colors duration-200 active:scale-95 shadow-sm mt-xs">
+                    Đăng nhập
+                </button>
+</form>
+<!-- Social Login Divider -->
+<div class="relative flex items-center py-xs">
+<div class="flex-grow border-t border-slate-200"></div>
+<span class="flex-shrink mx-xs font-label-md text-label-md text-on-secondary-container uppercase">Hoặc</span>
+<div class="flex-grow border-t border-slate-200"></div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-xs border border-slate-200 bg-white py-xs rounded-lg font-label-md text-on-surface hover:bg-slate-50 transition-colors">
+<svg class="w-4 h-4" viewbox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg>
+                    Google
+                </button>
+<button class="flex items-center justify-center gap-xs border border-slate-200 bg-white py-xs rounded-lg font-label-md text-on-surface hover:bg-slate-50 transition-colors">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.152-1.11-1.458-1.11-1.458-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                    GitHub
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-surface-container-lowest border-t border-surface-variant">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter w-full px-margin-desktop py-lg max-w-[1280px] mx-auto">
+<div class="col-span-2 space-y-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">TechBite Pro</span>
+<p class="font-body-md text-body-md text-on-secondary-container max-w-xs">
+                    Nền tảng quản lý quy trình làm việc hiệu suất cao dành cho các kỹ sư và đội ngũ kỹ thuật.
+                </p>
+</div>
+<div class="flex flex-col gap-xs">
+<h4 class="font-label-md text-label-md text-on-surface uppercase mb-xs">Công ty</h4>
+<a class="font-body-md text-on-secondary-container hover:text-primary transition-colors" href="#">About Us</a>
+<a class="font-body-md text-on-secondary-container hover:text-primary transition-colors" href="#">Careers</a>
+</div>
+<div class="flex flex-col gap-xs">
+<h4 class="font-label-md text-label-md text-on-surface uppercase mb-xs">Pháp lý</h4>
+<a class="font-body-md text-on-secondary-container hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-md text-on-secondary-container hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-xs">
+<h4 class="font-label-md text-label-md text-on-surface uppercase mb-xs">Hỗ trợ</h4>
+<a class="font-body-md text-on-secondary-container hover:text-primary transition-colors" href="#">Support</a>
+<a class="font-body-md text-on-secondary-container hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+<div class="w-full px-margin-desktop py-md max-w-[1280px] mx-auto border-t border-surface-variant/50">
+<p class="font-label-md text-label-md text-on-secondary-container opacity-70">
+                © 2024 TechBite Pro. All rights reserved.
+            </p>
+</div>
+</footer>
+<script>
+        // Micro-interaction for form focus
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('.material-symbols-outlined')?.classList.add('text-primary-container', 'opacity-100');
+                input.parentElement.querySelector('.material-symbols-outlined')?.classList.remove('opacity-40');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('.material-symbols-outlined')?.classList.remove('text-primary-container', 'opacity-100');
+                input.parentElement.querySelector('.material-symbols-outlined')?.classList.add('opacity-40');
+            });
+        });
+
+        // Simple button active state handler
+        const primaryBtn = document.querySelector('button.bg-primary-container');
+        primaryBtn.addEventListener('mousedown', () => primaryBtn.classList.add('scale-95'));
+        primaryBtn.addEventListener('mouseup', () => primaryBtn.classList.remove('scale-95'));
+    </script>
+</body></html>

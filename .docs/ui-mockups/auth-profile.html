@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TechBite Pro - Profile</title>
+<!-- Tailwind CSS & Google Fonts -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, .brand-logo {
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+    </style>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary": "#9d4300",
+                "on-primary-fixed": "#341100",
+                "primary-fixed": "#ffdbca",
+                "primary-container": "#f97316",
+                "on-secondary-fixed": "#131b2e",
+                "on-secondary-fixed-variant": "#3f465c",
+                "on-tertiary-fixed-variant": "#38485d",
+                "on-primary": "#ffffff",
+                "secondary": "#565e74",
+                "on-tertiary-fixed": "#0b1c30",
+                "tertiary-fixed": "#d3e4fe",
+                "background": "#f8f9fa",
+                "secondary-container": "#dae2fd",
+                "primary-fixed-dim": "#ffb690",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-container": "#243348",
+                "secondary-fixed": "#dae2fd",
+                "on-error": "#ffffff",
+                "secondary-fixed-dim": "#bec6e0",
+                "surface-dim": "#d9dadb",
+                "surface-container-low": "#f3f4f5",
+                "on-background": "#191c1d",
+                "inverse-on-surface": "#f0f1f2",
+                "surface-container": "#edeeef",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#e1e3e4",
+                "on-primary-fixed-variant": "#783200",
+                "inverse-surface": "#2e3132",
+                "tertiary": "#505f76",
+                "on-secondary": "#ffffff",
+                "on-secondary-container": "#5c647a",
+                "on-surface": "#191c1d",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "error-container": "#ffdad6",
+                "tertiary-container": "#8c9cb4",
+                "surface-bright": "#f8f9fa",
+                "surface-tint": "#9d4300",
+                "inverse-primary": "#ffb690",
+                "surface": "#f8f9fa",
+                "outline-variant": "#e0c0b1",
+                "error": "#ba1a1a",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#584237",
+                "on-primary-container": "#582200",
+                "surface-variant": "#e1e3e4",
+                "outline": "#8c7164",
+                "surface-container-high": "#e7e8e9"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "2xl": "1rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "base": "4px",
+                "xl": "80px",
+                "sm": "16px",
+                "margin-mobile": "16px",
+                "margin-desktop": "32px",
+                "md": "24px",
+                "gutter": "24px",
+                "xs": "8px",
+                "lg": "48px"
+            },
+            "fontFamily": {
+                "label-md": ["Inter"],
+                "headline-xl": ["Hanken Grotesk"],
+                "body-lg": ["Inter"],
+                "headline-md": ["Hanken Grotesk"],
+                "headline-sm": ["Hanken Grotesk"],
+                "headline-lg": ["Hanken Grotesk"],
+                "body-md": ["Inter"]
+            },
+            "fontSize": {
+                "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "headline-sm": ["18px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "-0.01em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface docked full-width top-0 border-b border-surface-variant z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-[1280px] mx-auto h-16">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary brand-logo">TechBite Pro</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Products</a>
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Solutions</a>
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Enterprise</a>
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Pricing</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-secondary hover:text-primary font-body-md text-body-md px-4 py-2 transition-colors duration-200">Login</button>
+<button class="bg-primary text-on-primary font-body-md text-body-md px-6 py-2 rounded-lg font-bold scale-95 active:opacity-80 transition-transform">Get Started</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow max-w-[1280px] w-full mx-auto py-10 px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Left Column: Sidebar Navigation -->
+<aside class="col-span-1 flex flex-col h-fit sticky top-24">
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-fixed text-on-primary-fixed font-bold border-l-4 border-primary transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body-md text-body-md">Thông tin cá nhân</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-secondary hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-body-md text-body-md">Lịch sử mua hàng</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-secondary hover:bg-surface-container transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Cài đặt</span>
+</a>
+</nav>
+<div class="mt-xl pt-lg border-t border-surface-variant">
+<button class="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-error/10 text-error font-bold hover:bg-error hover:text-on-error transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md text-body-md">Đăng xuất</span>
+</button>
+</div>
+</aside>
+<!-- Right Column: Content Area -->
+<div class="col-span-3 flex flex-col gap-gutter">
+<!-- Profile Info Card -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-md shadow-[0_10px_15px_-3px_rgba(15,23,42,0.05)]">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Thông tin cá nhân</h2>
+<button class="text-primary font-bold font-label-md text-label-md hover:underline">Chỉnh sửa</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tên</label>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Hải Đăng</p>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Email</label>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">haidang.dev@gmail.com</p>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">SĐT</label>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">0912345678</p>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Vai trò</label>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Senior Developer</p>
+</div>
+</div>
+</section>
+<!-- Order History Card -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-md shadow-[0_10px_15px_-3px_rgba(15,23,42,0.05)]">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Lịch sử mua hàng</h2>
+<span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full text-[12px] font-bold">2 đơn hàng gần nhất</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="border-b border-surface-variant">
+<tr>
+<th class="py-4 px-2 font-label-md text-label-md text-on-surface-variant">MÃ ĐƠN</th>
+<th class="py-4 px-2 font-label-md text-label-md text-on-surface-variant">NGÀY</th>
+<th class="py-4 px-2 font-label-md text-label-md text-on-surface-variant">TỔNG CỘNG</th>
+<th class="py-4 px-2 font-label-md text-label-md text-on-surface-variant">TRẠNG THÁI</th>
+<th class="py-4 px-2 font-label-md text-label-md text-on-surface-variant"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<!-- Order 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-2 font-body-md text-body-md text-primary font-bold">TB-12345</td>
+<td class="py-4 px-2 font-body-md text-body-md text-secondary">15/10/2023</td>
+<td class="py-4 px-2 font-body-md text-body-md text-on-surface font-bold">85.000 đ</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">
+<span class="w-2 h-2 rounded-full bg-blue-600 mr-2"></span>
+                                            Đang giao
+                                        </span>
+</td>
+<td class="py-4 px-2 text-right">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">chevron_right</button>
+</td>
+</tr>
+<!-- Order 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-2 font-body-md text-body-md text-primary font-bold">TB-12300</td>
+<td class="py-4 px-2 font-body-md text-body-md text-secondary">10/10/2023</td>
+<td class="py-4 px-2 font-body-md text-body-md text-on-surface font-bold">120.000 đ</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800">
+<span class="w-2 h-2 rounded-full bg-green-600 mr-2"></span>
+                                            Thành công
+                                        </span>
+</td>
+<td class="py-4 px-2 text-right">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">chevron_right</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-6 flex justify-center">
+<button class="text-secondary font-label-md text-label-md font-bold flex items-center gap-1 hover:text-primary transition-colors">
+                            Xem tất cả lịch sử đơn hàng
+                            <span class="material-symbols-outlined text-sm">arrow_downward</span>
+</button>
+</div>
+</section>
+<!-- Additional Quick Actions (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-tertiary-container/10 p-md rounded-2xl border border-tertiary-container/20 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white">credit_card</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-tertiary-container">Phương thức thanh toán</h3>
+<p class="font-body-md text-body-md text-on-tertiary-fixed-variant">Quản lý thẻ tín dụng &amp; Ví điện tử</p>
+</div>
+</div>
+<div class="bg-primary-container/10 p-md rounded-2xl border border-primary-container/20 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white">location_on</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-primary-container">Địa chỉ giao hàng</h3>
+<p class="font-body-md text-body-md text-on-primary-fixed-variant">3 địa chỉ đã lưu</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-surface-variant">
+<div class="max-w-[1280px] mx-auto px-margin-desktop py-lg">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter mb-12">
+<div class="col-span-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface mb-4 block brand-logo">TechBite Pro</span>
+<p class="font-body-md text-body-md text-secondary max-w-xs mb-6">Nền tảng cung cấp giải pháp dinh dưỡng tối ưu cho cộng đồng công nghệ cao.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface uppercase mb-4">Công ty</h4>
+<ul class="space-y-3">
+<li><a class="text-on-secondary-container hover:text-primary-container font-label-md text-label-md transition-colors" href="#">About Us</a></li>
+<li><a class="text-on-secondary-container hover:text-primary-container font-label-md text-label-md transition-colors" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface uppercase mb-4">Pháp lý</h4>
+<ul class="space-y-3">
+<li><a class="text-on-secondary-container hover:text-primary-container font-label-md text-label-md transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-on-secondary-container hover:text-primary-container font-label-md text-label-md transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface uppercase mb-4">Hỗ trợ</h4>
+<ul class="space-y-3">
+<li><a class="text-on-secondary-container hover:text-primary-container font-label-md text-label-md transition-colors" href="#">Support</a></li>
+<li><a class="text-on-secondary-container hover:text-primary-container font-label-md text-label-md transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-surface-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-md text-label-md text-secondary">© 2024 TechBite Pro. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-secondary hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">language</span></a>
+<a class="text-secondary hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.classList.add('scale-95');
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.classList.remove('scale-95');
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>
