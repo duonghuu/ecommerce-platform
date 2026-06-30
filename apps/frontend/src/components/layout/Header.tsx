@@ -8,7 +8,14 @@ import GlobalSearch from "../ui/GlobalSearch";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const totalItems = useCartStore((state) => state.getTotalItems());
+
+  useEffect(() => {
+    import('@/app/actions/auth').then(({ checkAuth }) => {
+      checkAuth().then(setIsLoggedIn);
+    });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,12 +94,32 @@ export default function Header() {
             )}
             <span className="font-label-md text-label-md hidden md:inline ml-1">Cart</span>
           </Link>
-          <button className="flex items-center gap-xs bg-primary text-on-primary px-sm md:px-md py-xs rounded font-label-md text-label-md hover:bg-surface-tint transition-all active:scale-95">
-            <span className="material-symbols-outlined" data-icon="account_circle">
-              account_circle
-            </span>
-            <span className="hidden md:inline">Sign In</span>
-          </button>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-4">
+              <Link href="/profile" className="flex items-center gap-xs text-secondary hover:text-primary transition-all active:scale-95">
+                <span className="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+                <span className="hidden md:inline font-label-md text-label-md">Tài khoản</span>
+              </Link>
+              <button 
+                onClick={async () => {
+                  const { logoutUser } = await import('@/app/actions/auth');
+                  await logoutUser();
+                  window.location.href = '/login';
+                }}
+                className="flex items-center gap-xs text-secondary hover:text-red-500 transition-all active:scale-95"
+                title="Đăng xuất"
+              >
+                <span className="material-symbols-outlined" data-icon="logout">logout</span>
+              </button>
+            </div>
+          ) : (
+            <Link href="/login" className="flex items-center gap-xs bg-primary text-on-primary px-sm md:px-md py-xs rounded font-label-md text-label-md hover:bg-surface-tint transition-all active:scale-95">
+              <span className="material-symbols-outlined" data-icon="account_circle">
+                account_circle
+              </span>
+              <span className="hidden md:inline">Đăng nhập</span>
+            </Link>
+          )}
         </div>
       </div>
 

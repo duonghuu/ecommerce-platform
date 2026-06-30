@@ -225,3 +225,71 @@ paths:
           description: Conflict (Email already exists)
       x-implementation:
         filePath: apps/backend/src/modules/auth/auth.controller.ts
+
+  /api/v1/auth/login:
+    post:
+      summary: Đăng nhập tài khoản
+      description: Đăng nhập tài khoản khách hàng.
+      operationId: login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        type: object
+                      accessToken:
+                        type: string
+                      refreshToken:
+                        type: string
+        '400':
+          description: Bad Request (Validation failed)
+        '401':
+          description: Unauthorized (Incorrect email or password)
+      x-implementation:
+        filePath: apps/backend/src/modules/auth/auth.controller.ts
+
+  /api/v1/auth/logout:
+    post:
+      summary: Đăng xuất tài khoản
+      description: Thực hiện đăng xuất người dùng, vô hiệu hóa token hiện tại (sẽ xử lý bằng Redis sau này).
+      operationId: logout
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  message:
+                    type: string
+      x-implementation:
+        filePath: apps/backend/src/modules/auth/auth.controller.ts

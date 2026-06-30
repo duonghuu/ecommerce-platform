@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import LoginForm, { LoginPayload } from '@/components/auth/LoginForm';
 import MasterLayout from '@/components/layout/MasterLayout';
+import { loginUser } from '@/app/actions/auth';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,14 +13,13 @@ export default function LoginPage() {
     setIsLoading(true);
     setErrorMessage(undefined);
     
-    // Mock API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      if (data.email === 'admin@techbite.vn' && data.password === '123456') {
-        // Handle success scenario (redirect, update state)
+      const result = await loginUser(data);
+      if (result.success) {
+        // Tự động chuyển hướng về trang chủ sau khi lưu cookie thành công ở Server Action
         window.location.href = '/';
       } else {
-        setErrorMessage('Email hoặc mật khẩu không chính xác');
+        setErrorMessage(result.message);
       }
     } catch (error) {
       setErrorMessage('Đã xảy ra lỗi hệ thống. Vui lòng thử lại.');

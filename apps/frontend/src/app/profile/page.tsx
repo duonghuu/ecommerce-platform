@@ -5,6 +5,7 @@ import MasterLayout from '@/components/layout/MasterLayout';
 import ProfileInfo, { User } from '@/components/auth/ProfileInfo';
 import OrderHistory, { OrderSummary } from '@/components/auth/OrderHistory';
 import LogoutButton from '@/components/auth/LogoutButton';
+import { logoutUser } from '@/app/actions/auth';
 
 // Mock Data
 const MOCK_USER: User = {
@@ -53,9 +54,14 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
-    // Simulate logout logic
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    window.location.href = '/login';
+    try {
+      await logoutUser();
+      window.location.href = '/login';
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (

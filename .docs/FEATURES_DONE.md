@@ -10,3 +10,4 @@
 - **2026-06-26 02:12**: Đã hoàn thành Backend Plan, mở rộng Product Schema, viết API Product Detail, và code thành công màn hình ProductDetailPage tích hợp MasterLayout chuẩn NextJS 15.
 - **2026-06-26 22:45**: Hoàn thiện tính năng Search Suggest: tạo API (NestJS), cấu hình index Prisma, code UI (GlobalSearch) và tích hợp React Query.
 - **2026-06-28 17:29**: Đã hoàn thành API Đăng ký (`/register`), xử lý Prisma schema, tự động trả Token và lưu cookies an toàn qua Next.js Server Action.
+- **2026-07-01 00:34**: Đã hoàn thiện luồng Refresh Token (API NestJS & NextJS Server Action), thiết lập cookie an toàn, nâng cấp checkAuth decode JWT, và tạo helpers clientFetch/serverFetch tự động refresh.
