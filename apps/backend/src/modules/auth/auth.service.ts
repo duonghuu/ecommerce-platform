@@ -2,6 +2,7 @@ import { Injectable, ConflictException, InternalServerErrorException, Unauthoriz
 import { PrismaService } from '../../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -174,5 +175,54 @@ export class AuthService {
     } catch (e) {
       throw new UnauthorizedException('Refresh token không hợp lệ hoặc đã hết hạn');
     }
+  }
+
+  async getProfile(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        phone: true,
+        role: true,
+        isActive: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Không tìm thấy người dùng');
+    }
+
+    return user;
+  }
+
+  async changePassword(userId: string, data: ChangePasswordDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Không tìm thấy người dùng');
+    }
+
+    const isPasswordValid = await bcrypt.compare(data.oldPassword, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Mật khẩu hiện tại không chính xác');
+    }
+
+    const hashedNewPassword = await bcrypt.hash(data.newPassword, 10);
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedNewPassword },
+    });
+
+    // Logout after changing password
+    await this.logout();
+
+    return { success: true };
   }
 }

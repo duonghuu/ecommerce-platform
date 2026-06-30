@@ -222,3 +222,71 @@ export async function refreshAuthToken() {
     return { success: false, message: 'Lỗi khi refresh token.' };
   }
 }
+
+export async function getProfileUser() {
+  const isAuth = await checkAuth();
+  if (!isAuth) {
+    return { success: false, message: 'Unauthorized' };
+  }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get('accessToken')?.value;
+
+  try {
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${backendUrl}/auth/profile`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      cache: 'no-store', // Avoid caching profile data
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { success: false, message: data.message || 'Lỗi lấy thông tin cá nhân' };
+    }
+
+    return { success: true, data: data.data };
+  } catch (error) {
+    return { success: false, message: 'Lỗi kết nối đến máy chủ.' };
+  }
+}
+
+export async function changeUserPassword(payload: any) {
+  const isAuth = await checkAuth();
+  if (!isAuth) {
+    return { success: false, message: 'Unauthorized' };
+  }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get('accessToken')?.value;
+
+  try {
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${backendUrl}/auth/change-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { success: false, message: data.message || 'Đổi mật khẩu thất bại' };
+    }
+
+    // Backend cleared refresh token, now we clear frontend cookies
+    cookieStore.delete('accessToken');
+    cookieStore.delete('refreshToken');
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    return { success: false, message: 'Lỗi kết nối đến máy chủ.' };
+  }
+}

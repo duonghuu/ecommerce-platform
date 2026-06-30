@@ -1,11 +1,14 @@
-import { Controller, Post, Body, UsePipes, HttpCode, HttpStatus, Res, Req, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Get, Body, UsePipes, UseGuards, HttpCode, HttpStatus, Res, Req, UnauthorizedException } from '@nestjs/common';
 import type { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterPayloadSchema } from './dto/register.dto';
 import type { RegisterDto } from './dto/register.dto';
 import { LoginPayloadSchema } from './dto/login.dto';
 import type { LoginDto } from './dto/login.dto';
+import { ChangePasswordPayloadSchema } from './dto/change-password.dto';
+import type { ChangePasswordDto } from './dto/change-password.dto';
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -92,6 +95,40 @@ export class AuthController {
       data: {
         accessToken: data.accessToken
       },
+    };
+  }
+
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  async getProfile(@Req() req: Request) {
+    const userId = (req as any).user.sub;
+    const profile = await this.authService.getProfile(userId);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Lấy thông tin cá nhân thành công',
+      data: profile,
+    };
+  }
+
+  @Post('change-password')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(new ZodValidationPipe(ChangePasswordPayloadSchema))
+  async changePassword(
+    @Req() req: Request,
+    @Body() payload: ChangePasswordDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const userId = (req as any).user.sub;
+    await this.authService.changePassword(userId, payload);
+
+    // Clear refresh token cookie since the user is logged out
+    res.clearCookie('refreshToken');
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Đổi mật khẩu thành công. Vui lòng đăng nhập lại.',
     };
   }
 }
