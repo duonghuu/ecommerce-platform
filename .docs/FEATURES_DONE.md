@@ -12,3 +12,4 @@
 - **2026-06-28 17:29**: Đã hoàn thành API Đăng ký (`/register`), xử lý Prisma schema, tự động trả Token và lưu cookies an toàn qua Next.js Server Action.
 - **2026-07-01 00:34**: Đã hoàn thiện luồng Refresh Token (API NestJS & NextJS Server Action), thiết lập cookie an toàn, nâng cấp checkAuth decode JWT, và tạo helpers clientFetch/serverFetch tự động refresh.
 - **2026-07-01 00:58**: Hoàn thành API Profile & Đổi mật khẩu. Xử lý Server Component cho ProfilePage, hoàn thiện UI ChangePasswordForm và luồng thu hồi token sau khi đổi.
+- **2026-07-05 11:18**: Lập kế hoạch và code UI Master Layout cho Admin Dashboard, tích hợp Sidebar, TopBar, cấu hình Tailwind v4 và hoàn thiện trang Dashboard tĩnh.

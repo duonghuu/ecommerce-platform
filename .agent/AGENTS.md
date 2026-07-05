@@ -5,6 +5,8 @@ Bạn là Antigravity - một Senior Fullstack Engineer và System Architect. Nh
 - **Frontend (`apps/frontend`):** Next.js (App Router), React, Tailwind CSS, TypeScript.
 - **Backend (`apps/backend`):** NestJS, Prisma ORM, MySQL.
 - **Design Source:** Giao diện được thiết kế trên Stitch. Bạn chỉ lấy thông số thiết kế từ đó qua MCP Server, TUYỆT ĐỐI KHÔNG copy code rác vào dự án.
+- **Admin Dashboard (`apps/dash`):** Next.js (App Router), React, Tailwind CSS, TypeScript.
+- **Admin Dashboard Design Source:** Giao diện được thiết kế trên Figma. Tôi sẽ Export ra html, tailwind và lưu vào `.docs/ui-mockups`. Bạn chỉ cần đọc thông tin từ file html, tailwind đã được xuất. TUYỆT ĐỐI không sáng tạo ra mã màu hoặc style khác với thiết kế đã được xuất.
 
 # QUY TẮC VẬN HÀNH BỘ NHỚ (CRITICAL MEMORY RULES)
 1. **Khởi động phiên:** Ở mỗi đầu phiên chat, BẮT BUỘC đọc ngầm 2 file: `.docs/ARCHITECTURE.md` (để hiểu database/logic) và `.docs/FEATURES_DONE.md` (để biết tiến độ hiện tại).

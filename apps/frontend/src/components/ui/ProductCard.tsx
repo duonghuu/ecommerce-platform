@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { useCartStore } from '@/store/cartStore';
 
 export interface Product {
   id: string;
   name: string;
+  slug?: string;
   price: number;
   originalPrice?: number;
   imageUrl: string;
@@ -32,7 +34,7 @@ export function ProductCard({ product, isAddingToCart }: ProductCardProps) {
 
   return (
     <div className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition-all group flex flex-col h-full">
-      <div className="h-48 overflow-hidden relative">
+      <Link href={`/products/${product.slug || product.id}`} className="block h-48 overflow-hidden relative">
         <img
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 bg-slate-50"
           alt={product.name}
@@ -43,11 +45,13 @@ export function ProductCard({ product, isAddingToCart }: ProductCardProps) {
             {product.badges[0]}
           </div>
         )}
-      </div>
+      </Link>
       <div className="p-sm flex flex-col flex-grow">
-        <h3 className="font-headline-sm text-headline-sm text-on-surface mb-1">
-          {product.name}
-        </h3>
+        <Link href={`/products/${product.slug || product.id}`}>
+          <h3 className="font-headline-sm text-headline-sm text-on-surface mb-1 hover:text-primary transition-colors">
+            {product.name}
+          </h3>
+        </Link>
         <p className="text-secondary font-body-md text-body-md line-clamp-1 mb-md flex-grow">
           {product.description}
         </p>

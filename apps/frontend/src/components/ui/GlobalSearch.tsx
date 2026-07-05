@@ -9,6 +9,7 @@ import axios from "axios";
 export interface SuggestProduct {
   id: string;
   name: string;
+  slug: string;
   price: number;
   image: string;
 }
@@ -48,7 +49,7 @@ interface SuggestProductItemProps {
 function SuggestProductItem({ product, onClick }: SuggestProductItemProps) {
   return (
     <Link
-      href={`/product/${product.id}`}
+      href={`/products/${product.slug || product.id}`}
       className="flex items-center gap-sm p-sm hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0"
       onClick={() => onClick(product.id)}
     >
@@ -65,7 +66,7 @@ function SuggestProductItem({ product, onClick }: SuggestProductItemProps) {
       <div className="flex-1 min-w-0">
         <p className="text-sm font-bold text-slate-900 truncate">{product.name}</p>
         <p className="text-sm font-bold text-[#A63D40]">
-          {product.price.toLocaleString("vi-VN")}đ
+          {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
         </p>
       </div>
     </Link>

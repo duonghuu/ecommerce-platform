@@ -213,6 +213,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                   product={{
                     id: relatedItem.id,
                     name: relatedItem.name,
+                    slug: relatedItem.slug,
                     price: Number(relatedItem.price),
                     originalPrice: relatedItem.salePrice ? Number(relatedItem.price) : undefined,
                     imageUrl: relatedItem.thumbnailUrl,

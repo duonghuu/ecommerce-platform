@@ -72,6 +72,7 @@ async function ProductListData({ searchParams }: { searchParams: Promise<{ [key:
     return {
       id: p.id,
       name: p.name,
+      slug: p.slug,
       price,
       originalPrice,
       imageUrl: p.thumbnailUrl || '',

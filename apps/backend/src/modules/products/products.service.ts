@@ -67,6 +67,7 @@ export class ProductsService {
       select: {
         id: true,
         name: true,
+        slug: true,
         price: true,
         images: true,
       }
@@ -80,15 +81,16 @@ export class ProductsService {
       return {
         id: p.id,
         name: p.name,
+        slug: p.slug,
         price: Number(p.price),
         image,
       };
     });
   }
 
-  async getOneProduct(id: string) {
+  async getOneProduct(slug: string) {
     const product = await this.prisma.product.findUnique({
-      where: { id },
+      where: { slug },
       include: {
         category: {
           select: { id: true, name: true, slug: true }
@@ -98,10 +100,10 @@ export class ProductsService {
     return product;
   }
 
-  async getRelatedProducts(id: string, limit: number = 4) {
+  async getRelatedProducts(slug: string, limit: number = 4) {
     const product = await this.prisma.product.findUnique({
-      where: { id },
-      select: { categoryId: true }
+      where: { slug },
+      select: { categoryId: true, id: true }
     });
 
     if (!product) return [];
@@ -109,7 +111,7 @@ export class ProductsService {
     return this.prisma.product.findMany({
       where: {
         categoryId: product.categoryId,
-        id: { not: id }
+        id: { not: product.id }
       },
       take: limit,
       orderBy: { salesCount: 'desc' }

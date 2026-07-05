@@ -61,10 +61,10 @@ export class ProductsController {
     }
   }
 
-  @Get(':id')
-  async getOneProduct(@Param('id') id: string) {
+  @Get(':slug')
+  async getOneProduct(@Param('slug') slug: string) {
     try {
-      const data = await this.productsService.getOneProduct(id);
+      const data = await this.productsService.getOneProduct(slug);
       if (!data) {
         throw new NotFoundException({
           status: 'error',
@@ -77,7 +77,7 @@ export class ProductsController {
       };
     } catch (error) {
       if (error instanceof NotFoundException) throw error;
-      console.error(`Error fetching product ${id}:`, error);
+      console.error(`Error fetching product ${slug}:`, error);
       throw new InternalServerErrorException({
         status: 'error',
         message: 'Không thể lấy chi tiết sản phẩm. Vui lòng thử lại.',
@@ -85,17 +85,17 @@ export class ProductsController {
     }
   }
 
-  @Get(':id/related')
-  async getRelatedProducts(@Param('id') id: string, @Query('limit') limitStr?: string) {
+  @Get(':slug/related')
+  async getRelatedProducts(@Param('slug') slug: string, @Query('limit') limitStr?: string) {
     try {
       const limit = limitStr ? parseInt(limitStr, 10) : 4;
-      const data = await this.productsService.getRelatedProducts(id, limit);
+      const data = await this.productsService.getRelatedProducts(slug, limit);
       return {
         status: 'success',
         data,
       };
     } catch (error) {
-      console.error(`Error fetching related products for ${id}:`, error);
+      console.error(`Error fetching related products for ${slug}:`, error);
       throw new InternalServerErrorException({
         status: 'error',
         message: 'Không thể lấy danh sách sản phẩm liên quan. Vui lòng thử lại.',

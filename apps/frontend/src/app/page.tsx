@@ -70,6 +70,7 @@ async function HomeData() {
   const products = (data.featuredProducts || []).map((p: any) => ({
     id: p.id,
     name: p.name,
+    slug: p.slug,
     price: p.price,
     originalPrice: p.salePrice ? p.price : undefined,
     imageUrl: p.thumbnailUrl,
