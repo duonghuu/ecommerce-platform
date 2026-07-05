@@ -13,3 +13,4 @@
 - **2026-07-01 00:34**: Đã hoàn thiện luồng Refresh Token (API NestJS & NextJS Server Action), thiết lập cookie an toàn, nâng cấp checkAuth decode JWT, và tạo helpers clientFetch/serverFetch tự động refresh.
 - **2026-07-01 00:58**: Hoàn thành API Profile & Đổi mật khẩu. Xử lý Server Component cho ProfilePage, hoàn thiện UI ChangePasswordForm và luồng thu hồi token sau khi đổi.
 - **2026-07-05 11:18**: Lập kế hoạch và code UI Master Layout cho Admin Dashboard, tích hợp Sidebar, TopBar, cấu hình Tailwind v4 và hoàn thiện trang Dashboard tĩnh.
+- **2026-07-05 13:11**: Lập bản thiết kế Frontend và hoàn thành code UI Trang quản lý Chuyên mục (Category) cho Admin Dashboard, bao gồm Mock Data.

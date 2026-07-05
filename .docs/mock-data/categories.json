@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cat_1",
+    "name": "Digital Product",
+    "slug": "digital-product",
+    "iconUrl": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    "parentCategory": null,
+    "status": "ACTIVE",
+    "createdAt": "2026-07-01T10:00:00Z"
+  },
+  {
+    "id": "cat_2",
+    "name": "Fashion",
+    "slug": "fashion",
+    "iconUrl": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    "parentCategory": null,
+    "status": "ACTIVE",
+    "createdAt": "2026-07-02T11:30:00Z"
+  },
+  {
+    "id": "cat_3",
+    "name": "Mobile",
+    "slug": "mobile",
+    "iconUrl": "https://images.unsplash.com/photo-1598327105666-5b89351cb315?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    "parentCategory": "digital-product",
+    "status": "ACTIVE",
+    "createdAt": "2026-07-03T09:15:00Z"
+  },
+  {
+    "id": "cat_4",
+    "name": "Electronic",
+    "slug": "electronic",
+    "iconUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    "parentCategory": "digital-product",
+    "status": "INACTIVE",
+    "createdAt": "2026-07-04T14:45:00Z"
+  }
+]
