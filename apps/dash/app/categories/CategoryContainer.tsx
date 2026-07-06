@@ -9,11 +9,13 @@ import { createCategory, updateCategory, deleteCategory } from "./actions";
 export const CategoryContainer = ({
   initialCategories,
   meta,
-  currentSearch
+  currentSearch,
+  parentCategories = []
 }: {
   initialCategories: Category[];
   meta: { page: number; limit: number; totalItems: number; totalPages: number };
   currentSearch: string;
+  parentCategories?: { id: string; name: string }[];
 }) => {
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -131,7 +133,9 @@ export const CategoryContainer = ({
                       <div className="w-[60px] h-[60px] bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
                         {category.iconUrl ? (
                           <Image
-                            src={category.iconUrl.startsWith('http') ? category.iconUrl : `http://localhost:3001${category.iconUrl}`}
+                            src={category.iconUrl.startsWith('http') 
+                              ? category.iconUrl.replace(/\/api\/v1\/upload(s)?/g, '/uploads') 
+                              : `http://localhost:3001${category.iconUrl.replace(/\/api\/v1\/upload(s)?/g, '/uploads')}`}
                             alt={category.name}
                             width={60}
                             height={60}
@@ -316,10 +320,11 @@ export const CategoryContainer = ({
                   defaultValue={editingCategory?.parentId || ""}
                 >
                   <option value="">None (Top Level)</option>
-                  {/* Có thể map danh sách danh mục cha ở đây. Hiện tại dùng mock */}
-                  <option value="some-uuid-1">Digital Product</option>
-                  <option value="some-uuid-2">Fashion</option>
-                  <option value="some-uuid-3">Electronic</option>
+                  {parentCategories.map(cat => (
+                    cat.id !== editingCategory?.id ? (
+                      <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    ) : null
+                  ))}
                 </select>
               </div>
               <div>

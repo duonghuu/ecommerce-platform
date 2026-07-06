@@ -21,12 +21,13 @@ export default async function CategoriesPage({
   let categories: Category[] = [];
   let meta = { page: 1, limit: 10, totalItems: 0, totalPages: 1 };
   let errorMsg = null;
+  let parentCategories: { id: string; name: string }[] = [];
 
   try {
-    const res = await fetch(
-      `${BACKEND_URL}/admin/categories?page=${page}&limit=10&search=${search}`,
-      { cache: "no-store" }
-    );
+    const [res, parentRes] = await Promise.all([
+      fetch(`${BACKEND_URL}/admin/categories?page=${page}&limit=10&search=${search}`, { cache: "no-store" }),
+      fetch(`${BACKEND_URL}/admin/categories?limit=1000`, { cache: "no-store" })
+    ]);
     
     if (!res.ok) {
       throw new Error(`API Error: ${res.status}`);
@@ -47,6 +48,14 @@ export default async function CategoriesPage({
     }));
     
     meta = data.meta;
+
+    if (parentRes.ok) {
+      const parentData = await parentRes.json();
+      parentCategories = parentData.data.map((item: any) => ({
+        id: item.id,
+        name: item.name,
+      }));
+    }
   } catch (error) {
     console.error("Failed to fetch categories:", error);
     errorMsg = "Không tải được dữ liệu danh mục.";
@@ -66,5 +75,10 @@ export default async function CategoriesPage({
   }
 
   // Success / Empty State will be handled in CategoryContainer
-  return <CategoryContainer initialCategories={categories} meta={meta} currentSearch={search} />;
+  return <CategoryContainer 
+    initialCategories={categories} 
+    meta={meta} 
+    currentSearch={search}
+    parentCategories={parentCategories}
+  />;
 }

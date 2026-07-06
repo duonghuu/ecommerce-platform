@@ -24,7 +24,7 @@ export async function createCategory(formData: FormData) {
 
     if (uploadRes.ok) {
       const uploadData = await uploadRes.json();
-      iconUrl = `${BACKEND_URL}${uploadData.data.url}`;
+      iconUrl = uploadData.data.url;
     }
   }
   const payload = {
@@ -70,7 +70,7 @@ export async function updateCategory(id: string, formData: FormData) {
 
     if (uploadRes.ok) {
       const uploadData = await uploadRes.json();
-      iconUrl = `${BACKEND_URL}${uploadData.data.url}`;
+      iconUrl = uploadData.data.url;
     }
   }
 
