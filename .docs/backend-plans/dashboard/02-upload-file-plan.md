@@ -85,7 +85,7 @@ Toàn bộ API quản lý file tại Dashboard **bắt buộc phải qua xác th
 
 ## 3. Trụ cột 3: Xử lý Bất đồng bộ & Caching (Architecture & Background Jobs)
 
-- **Architecture (Thiết kế Adapter Pattern):** Backend bắt buộc phải xây dựng `StorageService` theo mô hình Adapter (Interface) để dễ dàng "Switch" (Chuyển đổi) giữa `LocalStorage` (lưu vào thư mục `public/uploads` của máy chủ hiện tại) và `CloudStorage` (AWS S3, MinIO) chỉ bằng cách đổi biến môi trường `.env`. Không fix cứng luồng lưu file vật lý vào Controller.
+- **Architecture (Thiết kế Adapter Pattern):** Backend bắt buộc phải xây dựng `StorageService` theo mô hình Adapter (Interface) để dễ dàng "Switch" (Chuyển đổi) giữa `LocalStorage` (lưu vào thư mục `backend/public/uploads` của máy chủ hiện tại) và `CloudStorage` (AWS S3, MinIO) chỉ bằng cách đổi biến môi trường `.env`. Không fix cứng luồng lưu file vật lý vào Controller.
 - **Xử lý bất đồng bộ (Background Jobs / Message Queue):**
   - **Upload thông thường:** Các file ảnh nhỏ (< 5MB) có thể xử lý đồng bộ trực tiếp.
   - **Upload video/file lớn:** Nếu upload video hoặc cần nén/resize ảnh ra nhiều kích thước (thumbnail), bắt buộc phải đẩy vào Message Queue (VD: BullMQ/RabbitMQ). Controller trả về ngay HTTP 202 Accepted cùng với một `jobId` để Frontend tạo thanh Progress bar qua Polling/Websocket, worker chạy ngầm xử lý nén file mà không làm treo Main Thread của Node.js.

@@ -4,6 +4,7 @@ export interface Category {
   slug: string;
   iconUrl?: string | null;
   parentCategory?: string | null;
+  parentId?: string | null;
   status: 'ACTIVE' | 'INACTIVE';
   createdAt: string;
 }

@@ -293,3 +293,124 @@ paths:
                     type: string
       x-implementation:
         filePath: apps/backend/src/modules/auth/auth.controller.ts
+
+  /api/v1/admin/categories:
+    get:
+      summary: Lấy danh sách danh mục (Admin)
+      description: Lấy danh sách danh mục có phân trang, tìm kiếm và lọc trạng thái.
+      operationId: getAdminCategories
+      tags:
+        - Admin Categories
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: isActive
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+    post:
+      summary: Thêm mới danh mục
+      description: Thêm mới một danh mục sản phẩm (Admin)
+      operationId: createCategory
+      tags:
+        - Admin Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+                iconUrl:
+                  type: string
+                parentId:
+                  type: string
+                isActive:
+                  type: boolean
+                displayOrder:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+
+  /api/v1/admin/categories/{id}:
+    get:
+      summary: Lấy chi tiết danh mục
+      description: Trả về thông tin chi tiết một danh mục theo ID
+      operationId: getCategoryById
+      tags:
+        - Admin Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+    put:
+      summary: Cập nhật danh mục
+      description: Cập nhật thông tin danh mục theo ID
+      operationId: updateCategory
+      tags:
+        - Admin Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+    delete:
+      summary: Xóa danh mục
+      description: Soft delete danh mục theo ID
+      operationId: deleteCategory
+      tags:
+        - Admin Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts

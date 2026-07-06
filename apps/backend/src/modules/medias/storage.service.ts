@@ -9,7 +9,7 @@ export interface IStorageService {
 
 @Injectable()
 export class StorageService implements IStorageService {
-  private readonly uploadDir = path.join(process.cwd(), '..', '..', 'public', 'uploads');
+  private readonly uploadDir = path.join(process.cwd(), 'public', 'uploads');
 
   constructor() {
     // Đảm bảo thư mục upload tồn tại
