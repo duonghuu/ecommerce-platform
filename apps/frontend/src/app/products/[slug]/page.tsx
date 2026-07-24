@@ -2,9 +2,10 @@ import { notFound } from 'next/navigation';
 import ProductDetailClient from '@/components/products/detail/ProductDetailClient';
 import MasterLayout from '@/components/layout/MasterLayout';
 
-async function getProduct(id: string) {
+async function getProduct(slug: string) {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
   try {
-    const res = await fetch(`http://localhost:3001/api/v1/products/${id}`, { cache: 'no-store' });
+    const res = await fetch(`${apiUrl}/products/${slug}`, { cache: 'no-store' });
     if (!res.ok) {
       if (res.status === 404) return null;
       return null;
@@ -16,9 +17,10 @@ async function getProduct(id: string) {
   }
 }
 
-async function getRelatedProducts(id: string) {
+async function getRelatedProducts(slug: string) {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
   try {
-    const res = await fetch(`http://localhost:3001/api/v1/products/${id}/related?limit=4`, { cache: 'no-store' });
+    const res = await fetch(`${apiUrl}/products/${slug}/related?limit=4`, { cache: 'no-store' });
     if (!res.ok) return { data: [] };
     return res.json();
   } catch (error) {
@@ -27,15 +29,15 @@ async function getRelatedProducts(id: string) {
   }
 }
 
-export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const productData = await getProduct(id);
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const productData = await getProduct(slug);
   
   if (!productData || !productData.data) {
     notFound();
   }
 
-  const relatedData = await getRelatedProducts(id);
+  const relatedData = await getRelatedProducts(slug);
 
   return (
     <MasterLayout>

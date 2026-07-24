@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 export async function registerUser(payload: any) {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     const response = await fetch(`${backendUrl}/auth/register`, {
       method: 'POST',
       headers: {
@@ -59,7 +59,7 @@ export async function registerUser(payload: any) {
 
 export async function loginUser(payload: any) {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     const response = await fetch(`${backendUrl}/auth/login`, {
       method: 'POST',
       headers: {
@@ -114,7 +114,7 @@ export async function loginUser(payload: any) {
 
 export async function logoutUser() {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     
     // Gọi API logout để backend xử lý (ví dụ xóa token trong Redis sau này)
     await fetch(`${backendUrl}/auth/logout`, {
@@ -170,7 +170,7 @@ export async function refreshAuthToken() {
       return { success: false, message: 'Không có refresh token' };
     }
 
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     const response = await fetch(`${backendUrl}/auth/refresh`, {
       method: 'POST',
       headers: {
@@ -233,7 +233,7 @@ export async function getProfileUser() {
   const token = cookieStore.get('accessToken')?.value;
 
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     const response = await fetch(`${backendUrl}/auth/profile`, {
       method: 'GET',
       headers: {
@@ -265,7 +265,7 @@ export async function changeUserPassword(payload: any) {
   const token = cookieStore.get('accessToken')?.value;
 
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     const response = await fetch(`${backendUrl}/auth/change-password`, {
       method: 'POST',
       headers: {

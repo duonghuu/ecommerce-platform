@@ -36,7 +36,7 @@ async function ProductListData({ searchParams }: { searchParams: Promise<{ [key:
   let bannersRes;
 
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
     const [pRes, cRes, bRes] = await Promise.all([
       fetch(`${apiUrl}/products?${queryParams.toString()}`, { cache: 'no-store' }),
       fetch(`${apiUrl}/categories`, { next: { revalidate: 3600 } }),

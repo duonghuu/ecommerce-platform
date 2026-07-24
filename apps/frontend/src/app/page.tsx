@@ -8,14 +8,13 @@ import SocialProofBanner from "@/components/ui/SocialProofBanner";
 async function HomeData() {
   let response;
   try {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_API_URL
-        ? `${process.env.NEXT_PUBLIC_API_URL}/home`
-        : "http://localhost:3001/api/v1/home",
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3302/api/v1';
+    const res = await fetch(`${apiUrl}/home`,
       {
         cache: "no-store",
       }
     );
+    console.log(res, 'res')
     if (!res.ok) {
       throw new Error("Không thể tải dữ liệu trang chủ");
     }
