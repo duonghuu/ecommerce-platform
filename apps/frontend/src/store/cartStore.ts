@@ -1,82 +1,233 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { addCartItemServer, updateCartItemServer, removeCartItemServer, getCartServer, syncCartServer } from '@/app/actions/cart';
 
 export interface ICartItem {
-  id: string;
+  id: string; // productId
   name: string;
   thumbnailUrl: string;
   price: number;
   quantity: number;
+  stock?: number;
+  isStockError?: boolean;
 }
 
 interface CartState {
   cartItems: ICartItem[];
-  addItem: (item: ICartItem) => void;
-  removeItem: (id: string) => void;
-  increaseQuantity: (id: string) => void;
-  decreaseQuantity: (id: string) => void;
+  isLoading: boolean;
+  isSyncing: boolean;
+  error: string | null;
+  
+  fetchCart: () => Promise<void>;
+  addItem: (item: ICartItem) => Promise<void>;
+  removeItem: (id: string) => Promise<void>;
+  increaseQuantity: (id: string) => Promise<void>;
+  decreaseQuantity: (id: string) => Promise<void>;
   clearCart: () => void;
+  syncCart: () => Promise<void>;
+  clearError: () => void;
+  
   getTotalItems: () => number;
   getSubtotal: () => number;
 }
 
-// Initial mock data based on design
-const initialCartItems: ICartItem[] = [
-  {
-    id: 'item_1',
-    name: 'Chuột không dây Logitech MX Master 3S',
-    // Ảnh chụp cận cảnh chuột máy tính cao cấp trên Unsplash
-    thumbnailUrl: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=150&h=150&q=80',
-    price: 2490000,
-    quantity: 1,
-  },
-  {
-    id: 'item_2',
-    name: 'Bàn phím cơ Keychron K8 Pro Nhôm',
-    // Ảnh chụp góc làm việc có bàn phím cơ trên Unsplash
-    thumbnailUrl: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=150&h=150&q=80',
-    price: 2150000,
-    quantity: 1,
-  },
-];
+export const useCartStore = create<CartState>()(
+  persist(
+    (set, get) => ({
+      cartItems: [],
+      isLoading: false,
+      isSyncing: false,
+      error: null,
 
-export const useCartStore = create<CartState>((set, get) => ({
-  cartItems: initialCartItems,
+      clearError: () => set({ error: null }),
 
-  addItem: (newItem) => set((state) => {
-    const existingItem = state.cartItems.find(item => item.id === newItem.id);
-    if (existingItem) {
-      return {
-        cartItems: state.cartItems.map(item =>
-          item.id === newItem.id ? { ...item, quantity: item.quantity + newItem.quantity } : item
-        )
-      };
+      fetchCart: async () => {
+        set({ isLoading: true, error: null });
+        const res = await getCartServer();
+        if (res.success && res.data) {
+          const items: ICartItem[] = res.data.items.map((item: any) => ({
+            id: item.product.id,
+            name: item.product.name,
+            thumbnailUrl: item.product.thumbnailUrl,
+            price: item.product.salePrice || item.product.price,
+            quantity: item.quantity,
+            stock: item.product.stock,
+            isStockError: item.isStockError,
+          }));
+          set({ cartItems: items, isLoading: false });
+        } else {
+          // Guest mode uses local storage naturally, just stop loading
+          set({ isLoading: false });
+        }
+      },
+
+      addItem: async (newItem) => {
+        set({ isLoading: true, error: null });
+        
+        const existingItem = get().cartItems.find(item => item.id === newItem.id);
+        const newQuantity = existingItem ? existingItem.quantity + newItem.quantity : newItem.quantity;
+        
+        const res = await addCartItemServer(newItem.id, newItem.quantity);
+        if (res.success && res.data) {
+          const items: ICartItem[] = res.data.items.map((item: any) => ({
+            id: item.product.id,
+            name: item.product.name,
+            thumbnailUrl: item.product.thumbnailUrl,
+            price: item.product.salePrice || item.product.price,
+            quantity: item.quantity,
+            stock: item.product.stock,
+            isStockError: item.isStockError,
+          }));
+          set({ cartItems: items, isLoading: false });
+        } else if (res.status === 401) {
+          // Guest Mode
+          if (existingItem) {
+            set({
+              cartItems: get().cartItems.map(item =>
+                item.id === newItem.id ? { ...item, quantity: newQuantity } : item
+              ),
+              isLoading: false
+            });
+          } else {
+            set({ cartItems: [...get().cartItems, newItem], isLoading: false });
+          }
+        } else {
+          set({ error: res.message || 'Lỗi thêm vào giỏ hàng', isLoading: false });
+        }
+      },
+
+      removeItem: async (id) => {
+        set({ isLoading: true, error: null });
+        
+        const res = await removeCartItemServer(id);
+        if (res.success && res.data) {
+          const items: ICartItem[] = res.data.items.map((item: any) => ({
+            id: item.product.id,
+            name: item.product.name,
+            thumbnailUrl: item.product.thumbnailUrl,
+            price: item.product.salePrice || item.product.price,
+            quantity: item.quantity,
+            stock: item.product.stock,
+            isStockError: item.isStockError,
+          }));
+          set({ cartItems: items, isLoading: false });
+        } else if (res.status === 401) {
+          set({
+            cartItems: get().cartItems.filter(item => item.id !== id),
+            isLoading: false
+          });
+        } else {
+          set({ error: res.message || 'Lỗi xóa sản phẩm', isLoading: false });
+        }
+      },
+
+      increaseQuantity: async (id) => {
+        set({ isLoading: true, error: null });
+        const item = get().cartItems.find(i => i.id === id);
+        if (!item) {
+          set({ isLoading: false });
+          return;
+        }
+        
+        const newQuantity = item.quantity + 1;
+        
+        const res = await updateCartItemServer(id, newQuantity);
+        if (res.success && res.data) {
+          const items: ICartItem[] = res.data.items.map((item: any) => ({
+            id: item.product.id,
+            name: item.product.name,
+            thumbnailUrl: item.product.thumbnailUrl,
+            price: item.product.salePrice || item.product.price,
+            quantity: item.quantity,
+            stock: item.product.stock,
+            isStockError: item.isStockError,
+          }));
+          set({ cartItems: items, isLoading: false });
+        } else if (res.status === 401) {
+          set({
+            cartItems: get().cartItems.map(i =>
+              i.id === id ? { ...i, quantity: newQuantity } : i
+            ),
+            isLoading: false
+          });
+        } else {
+          set({ error: res.message || 'Lỗi cập nhật số lượng', isLoading: false });
+        }
+      },
+
+      decreaseQuantity: async (id) => {
+        set({ isLoading: true, error: null });
+        const item = get().cartItems.find(i => i.id === id);
+        if (!item || item.quantity <= 1) {
+          set({ isLoading: false });
+          return;
+        }
+        
+        const newQuantity = item.quantity - 1;
+        
+        const res = await updateCartItemServer(id, newQuantity);
+        if (res.success && res.data) {
+          const items: ICartItem[] = res.data.items.map((item: any) => ({
+            id: item.product.id,
+            name: item.product.name,
+            thumbnailUrl: item.product.thumbnailUrl,
+            price: item.product.salePrice || item.product.price,
+            quantity: item.quantity,
+            stock: item.product.stock,
+            isStockError: item.isStockError,
+          }));
+          set({ cartItems: items, isLoading: false });
+        } else if (res.status === 401) {
+          set({
+            cartItems: get().cartItems.map(i =>
+              i.id === id ? { ...i, quantity: newQuantity } : i
+            ),
+            isLoading: false
+          });
+        } else {
+          set({ error: res.message || 'Lỗi cập nhật số lượng', isLoading: false });
+        }
+      },
+
+      clearCart: () => set({ cartItems: [] }),
+
+      syncCart: async () => {
+        const localItems = get().cartItems;
+        if (localItems.length === 0) {
+           await get().fetchCart();
+           return;
+        }
+        
+        set({ isSyncing: true });
+        const payload = localItems.map(item => ({ productId: item.id, quantity: item.quantity }));
+        const res = await syncCartServer(payload);
+        
+        if (res.success && res.data) {
+          const items: ICartItem[] = res.data.items.map((item: any) => ({
+            id: item.product.id,
+            name: item.product.name,
+            thumbnailUrl: item.product.thumbnailUrl,
+            price: item.product.salePrice || item.product.price,
+            quantity: item.quantity,
+            stock: item.product.stock,
+            isStockError: item.isStockError,
+          }));
+          set({ cartItems: items, isSyncing: false });
+        } else {
+          set({ isSyncing: false });
+        }
+      },
+
+      getTotalItems: () => {
+        return get().cartItems.reduce((total, item) => total + item.quantity, 0);
+      },
+
+      getSubtotal: () => {
+        return get().cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+      }
+    }),
+    {
+      name: 'cart-storage',
     }
-    return { cartItems: [...state.cartItems, newItem] };
-  }),
-
-  removeItem: (id) => set((state) => ({
-    cartItems: state.cartItems.filter(item => item.id !== id)
-  })),
-
-  increaseQuantity: (id) => set((state) => ({
-    cartItems: state.cartItems.map(item =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    )
-  })),
-
-  decreaseQuantity: (id) => set((state) => ({
-    cartItems: state.cartItems.map(item =>
-      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    )
-  })),
-
-  clearCart: () => set({ cartItems: [] }),
-
-  getTotalItems: () => {
-    return get().cartItems.reduce((total, item) => total + item.quantity, 0);
-  },
-
-  getSubtotal: () => {
-    return get().cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  }
-}));
+  )
+);

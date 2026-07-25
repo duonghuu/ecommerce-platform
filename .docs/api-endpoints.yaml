@@ -414,3 +414,118 @@ paths:
           description: OK
       x-implementation:
         filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+
+  /api/v1/cart:
+    get:
+      summary: Lấy thông tin giỏ hàng
+      description: Lấy giỏ hàng của user hiện tại
+      operationId: getCart
+      tags:
+        - Cart
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/cart/items:
+    post:
+      summary: Thêm sản phẩm vào giỏ
+      description: Thêm mới hoặc tăng số lượng sản phẩm trong giỏ hàng
+      operationId: addItem
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Số lượng vượt quá tồn kho
+        '404':
+          description: Sản phẩm không tồn tại
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/cart/items/{productId}:
+    put:
+      summary: Cập nhật số lượng sản phẩm
+      description: Thay đổi trực tiếp số lượng sản phẩm
+      operationId: updateItem
+      tags:
+        - Cart
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+    delete:
+      summary: Xóa sản phẩm khỏi giỏ
+      description: Xóa hoàn toàn một sản phẩm khỏi giỏ hàng
+      operationId: removeItem
+      tags:
+        - Cart
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/cart/sync:
+    post:
+      summary: Đồng bộ giỏ hàng
+      description: Đồng bộ giỏ hàng từ Local Storage sau khi Guest đăng nhập
+      operationId: syncCart
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        type: string
+                      quantity:
+                        type: integer
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts

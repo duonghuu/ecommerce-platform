@@ -11,8 +11,28 @@ export default function CartDrawer() {
   const pathname = usePathname();
   
   const isCartOpen = searchParams.get("cart") === "open";
-  const { cartItems, increaseQuantity, decreaseQuantity, removeItem, getSubtotal } = useCartStore();
+  
+  const { 
+    cartItems, 
+    isLoading,
+    error,
+    increaseQuantity, 
+    decreaseQuantity, 
+    removeItem, 
+    getSubtotal,
+    fetchCart,
+    clearError
+  } = useCartStore();
+  
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Fix hydration mismatch for Zustand persist
+  useEffect(() => {
+    setMounted(true);
+    // Auto fetch the cart on mount if logged in (will just ignore if guest)
+    fetchCart();
+  }, [fetchCart]);
 
   // Prevent background scrolling when drawer is open
   useEffect(() => {
@@ -27,7 +47,6 @@ export default function CartDrawer() {
   }, [isCartOpen]);
 
   const handleClose = () => {
-    // Navigate back to the same path without the cart param
     const currentParams = new URLSearchParams(Array.from(searchParams.entries()));
     currentParams.delete("cart");
     const query = currentParams.toString();
@@ -37,12 +56,11 @@ export default function CartDrawer() {
 
   const handleCheckout = () => {
     setIsCheckingOut(true);
-    // Simulate checkout process
+    // Redirect to checkout or alert
     setTimeout(() => {
       setIsCheckingOut(false);
-      alert("Đã chuyển đến trang thanh toán!");
-      handleClose();
-    }, 1500);
+      router.push("/checkout"); // Usually redirect to a real page
+    }, 500);
   };
 
   const formatPrice = (price: number) => {
@@ -51,6 +69,8 @@ export default function CartDrawer() {
       currency: "VND",
     }).format(price);
   };
+
+  if (!mounted) return null; // Avoid hydration mismatch
 
   const subtotal = getSubtotal();
 
@@ -71,36 +91,61 @@ export default function CartDrawer() {
         aria-labelledby="cart-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-md border-b border-surface-variant shrink-0">
+        <div className="flex items-center justify-between p-md border-b border-surface-variant shrink-0 relative">
           <h2 id="cart-title" className="font-headline-md text-headline-md text-on-surface">
-            Giỏ hàng của bạn ({cartItems.length})
+            Giỏ hàng ({cartItems.length})
           </h2>
-          <button 
-            onClick={handleClose}
-            className="text-secondary hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container-low"
-            aria-label="Close cart"
-          >
-            <span className="material-symbols-outlined">close</span>
-          </button>
+          <div className="flex items-center gap-2">
+            {isLoading && (
+              <span className="material-symbols-outlined animate-spin text-secondary text-[20px]">
+                sync
+              </span>
+            )}
+            <button 
+              onClick={handleClose}
+              className="text-secondary hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container-low"
+              aria-label="Close cart"
+            >
+              <span className="material-symbols-outlined">close</span>
+            </button>
+          </div>
         </div>
 
+        {/* Error State */}
+        {error && (
+          <div className="bg-red-50 text-red-600 p-3 mx-4 mt-4 rounded-md flex items-start gap-2 text-body-sm">
+            <span className="material-symbols-outlined text-[18px]">error</span>
+            <span className="flex-1">{error}</span>
+            <button onClick={clearError}>
+              <span className="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+        )}
+
         {/* Item List */}
-        <div className="flex-1 overflow-y-auto p-md flex flex-col gap-sm">
-          {cartItems.length === 0 ? (
+        <div className="flex-1 overflow-y-auto p-md flex flex-col gap-sm relative">
+          {isLoading && cartItems.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full gap-2 text-secondary">
+               <span className="material-symbols-outlined animate-spin text-[40px]">progress_activity</span>
+               <p className="text-body-md">Đang tải giỏ hàng...</p>
+            </div>
+          ) : cartItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-secondary gap-sm">
               <span className="material-symbols-outlined text-[48px]">shopping_cart</span>
               <p className="font-body-md text-body-md">Giỏ hàng của bạn đang trống</p>
             </div>
           ) : (
-            cartItems.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                onIncreaseQuantity={increaseQuantity}
-                onDecreaseQuantity={decreaseQuantity}
-                onRemoveItem={removeItem}
-              />
-            ))
+            <div className={isLoading ? "opacity-50 pointer-events-none" : ""}>
+              {cartItems.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  onIncreaseQuantity={increaseQuantity}
+                  onDecreaseQuantity={decreaseQuantity}
+                  onRemoveItem={removeItem}
+                />
+              ))}
+            </div>
           )}
         </div>
 
@@ -118,7 +163,7 @@ export default function CartDrawer() {
             </p>
             <button
               onClick={handleCheckout}
-              disabled={isCheckingOut}
+              disabled={isCheckingOut || isLoading || cartItems.some(i => i.isStockError)}
               className="w-full bg-primary text-on-primary py-3 rounded font-label-md text-label-md hover:bg-surface-tint transition-all active:scale-95 disabled:opacity-70 disabled:active:scale-100 flex items-center justify-center gap-2"
             >
               {isCheckingOut ? (

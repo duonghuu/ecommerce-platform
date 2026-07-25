@@ -17,3 +17,4 @@
 - **2026-07-06 20:51**: Hoàn thành Backend Plan và tích hợp thành công API (CRUD, Upload File) vào trang Quản lý Chuyên mục. Sửa cấu hình lưu trữ tĩnh (serve static) cho ảnh tại backend/public/uploads.
 - **2026-07-07 00:15**: Tích hợp API lấy dữ liệu Danh mục cha. Sửa lỗi lưu sai đường dẫn ảnh và cấu hình thành công `next/image` (`unoptimized`) giúp hiển thị file tĩnh từ máy chủ cục bộ.
 - **2026-07-25 00:53**: Chuyển route chi tiết sản phẩm sang dùng slug và cấu hình Frontend dùng biến môi trường để gọi API.
+- **2026-07-26 00:22**: Hoàn thành tính năng Giỏ hàng: Thiết kế DB schema, viết API NestJS, và tích hợp UI CartDrawer Next.js sử dụng Server Actions kết hợp Zustand (lưu LocalStorage cho Guest).

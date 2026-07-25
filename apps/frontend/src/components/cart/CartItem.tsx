@@ -48,6 +48,11 @@ export default function CartItem({
           <p className="font-body-md text-body-md font-bold text-red-600 mt-1">
             {formatPrice(item.price)}
           </p>
+          {item.isStockError && (
+            <p className="font-label-sm text-label-sm text-red-500 mt-1">
+              * Sản phẩm không đủ tồn kho
+            </p>
+          )}
         </div>
 
         <div className="mt-2 w-24">

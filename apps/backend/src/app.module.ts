@@ -8,9 +8,9 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { BannersModule } from './modules/banners/banners.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MediasModule } from './modules/medias/medias.module';
-
+import { CartModule } from './modules/cart/cart.module';
 @Module({
-  imports: [PrismaModule, HomeModule, ProductsModule, CategoriesModule, BannersModule, AuthModule, MediasModule],
+  imports: [PrismaModule, HomeModule, ProductsModule, CategoriesModule, BannersModule, AuthModule, MediasModule, CartModule],
   controllers: [AppController],
   providers: [AppService],
 })
