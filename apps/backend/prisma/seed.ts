@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { config } from 'dotenv';
+import * as bcrypt from 'bcrypt';
 
 config();
 
@@ -7,11 +8,45 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Bắt đầu dọn dẹp dữ liệu cũ...');
+  await prisma.cartItem.deleteMany();
+  await prisma.cart.deleteMany();
+  await prisma.user.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
   await prisma.banner.deleteMany();
 
   console.log('Đang tạo dữ liệu mẫu...');
+
+  const hashedPassword = await bcrypt.hash('password123', 10);
+
+  // 0. Tạo Users
+  console.log('Đang tạo Users...');
+  const admin = await prisma.user.create({
+    data: {
+      fullName: 'Admin User',
+      email: 'admin@example.com',
+      password: hashedPassword,
+      role: 'ADMIN',
+    },
+  });
+
+  const staff = await prisma.user.create({
+    data: {
+      fullName: 'Staff User',
+      email: 'staff@example.com',
+      password: hashedPassword,
+      role: 'STAFF',
+    },
+  });
+
+  const customer = await prisma.user.create({
+    data: {
+      fullName: 'Customer User',
+      email: 'customer@example.com',
+      password: hashedPassword,
+      role: 'CUSTOMER',
+    },
+  });
 
   // 1. Tạo Banners
   await prisma.banner.create({
