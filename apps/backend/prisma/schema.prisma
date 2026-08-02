@@ -73,6 +73,7 @@ model Product {
 
   category     Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   cartItems    CartItem[]
+  orderItems   OrderItem[]
 
   @@index([categoryId])
   @@index([salesCount])
@@ -103,6 +104,7 @@ model User {
 
   medias    Media[]
   cart      Cart?
+  orders    Order[]
 
   @@index([role])
   @@index([isActive])
@@ -158,4 +160,77 @@ model CartItem {
   @@unique([cartId, productId])
   @@index([productId])
   @@map("cart_items")
+}
+
+enum PaymentMethod {
+  COD
+  QR_CODE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPING
+  COMPLETED
+  CANCELLED
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  code            String        @unique
+  userId          String?
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  shippingAddress String
+  shippingMethod  String
+  shippingFee     Decimal       @db.Decimal(10, 2)
+  paymentMethod   PaymentMethod
+  paymentStatus   PaymentStatus @default(PENDING)
+  status          OrderStatus   @default(PENDING)
+  subTotal        Decimal       @db.Decimal(10, 2)
+  discountAmount  Decimal       @default(0) @db.Decimal(10, 2)
+  discountCode    String?
+  totalAmount     Decimal       @db.Decimal(10, 2)
+  notes           String?       @db.Text
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+
+  user            User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items           OrderItem[]
+
+  @@index([code])
+  @@index([userId])
+  @@index([status])
+  @@index([paymentStatus])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id           String    @id @default(uuid())
+  orderId      String
+  productId    String?
+  productName  String
+  productImage String
+  price        Decimal   @db.Decimal(10, 2)
+  quantity     Int
+  
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
 }

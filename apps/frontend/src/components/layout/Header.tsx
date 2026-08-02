@@ -9,9 +9,11 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const totalItems = useCartStore((state) => state.getTotalItems());
 
   useEffect(() => {
+    setIsMounted(true);
     import('@/app/actions/auth').then(({ checkAuth }) => {
       checkAuth().then(setIsLoggedIn);
     });
@@ -87,7 +89,7 @@ export default function Header() {
             <span className="material-symbols-outlined" data-icon="shopping_cart">
               shopping_cart
             </span>
-            {totalItems > 0 && (
+            {isMounted && totalItems > 0 && (
               <span className="absolute -top-2 left-3 bg-red-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
                 {totalItems}
               </span>

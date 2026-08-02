@@ -522,6 +522,201 @@ paths:
                     properties:
                       productId:
                         type: string
+      description: Thêm mới một danh mục sản phẩm (Admin)
+      operationId: createCategory
+      tags:
+        - Admin Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+                iconUrl:
+                  type: string
+                parentId:
+                  type: string
+                isActive:
+                  type: boolean
+                displayOrder:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+
+  /api/v1/admin/categories/{id}:
+    get:
+      summary: Lấy chi tiết danh mục
+      description: Trả về thông tin chi tiết một danh mục theo ID
+      operationId: getCategoryById
+      tags:
+        - Admin Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+    put:
+      summary: Cập nhật danh mục
+      description: Cập nhật thông tin danh mục theo ID
+      operationId: updateCategory
+      tags:
+        - Admin Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+    delete:
+      summary: Xóa danh mục
+      description: Soft delete danh mục theo ID
+      operationId: deleteCategory
+      tags:
+        - Admin Categories
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/categories/admin-categories.controller.ts
+
+  /api/v1/cart:
+    get:
+      summary: Lấy thông tin giỏ hàng
+      description: Lấy giỏ hàng của user hiện tại
+      operationId: getCart
+      tags:
+        - Cart
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/cart/items:
+    post:
+      summary: Thêm sản phẩm vào giỏ
+      description: Thêm mới hoặc tăng số lượng sản phẩm trong giỏ hàng
+      operationId: addItem
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Số lượng vượt quá tồn kho
+        '404':
+          description: Sản phẩm không tồn tại
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/cart/items/{productId}:
+    put:
+      summary: Cập nhật số lượng sản phẩm
+      description: Thay đổi trực tiếp số lượng sản phẩm
+      operationId: updateItem
+      tags:
+        - Cart
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+    delete:
+      summary: Xóa sản phẩm khỏi giỏ
+      description: Xóa hoàn toàn một sản phẩm khỏi giỏ hàng
+      operationId: removeItem
+      tags:
+        - Cart
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/cart/sync:
+    post:
+      summary: Đồng bộ giỏ hàng
+      description: Đồng bộ giỏ hàng từ Local Storage sau khi Guest đăng nhập
+      operationId: syncCart
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        type: string
                       quantity:
                         type: integer
       responses:
@@ -529,3 +724,96 @@ paths:
           description: OK
       x-implementation:
         filePath: apps/backend/src/modules/cart/cart.controller.ts
+
+  /api/v1/orders:
+    post:
+      summary: Tạo đơn hàng
+      description: Nhận thông tin giao hàng, giỏ hàng, và phương thức thanh toán để tạo đơn hàng.
+      operationId: createOrder
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cartId:
+                  type: string
+                customerInfo:
+                  type: object
+                  properties:
+                    fullName:
+                      type: string
+                    email:
+                      type: string
+                    phone:
+                      type: string
+                    address:
+                      type: string
+                shippingMethod:
+                  type: string
+                paymentMethod:
+                  type: string
+                  enum: [COD, QR_CODE]
+                orderNotes:
+                  type: string
+                discountCode:
+                  type: string
+      responses:
+        '201':
+          description: Created
+      x-implementation:
+        filePath: apps/backend/src/modules/orders/orders.controller.ts
+
+  /api/v1/orders/{id}:
+    get:
+      summary: Lấy chi tiết đơn hàng
+      description: Lấy thông tin đơn hàng theo ID.
+      operationId: getOrder
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/orders/orders.controller.ts
+
+  /api/v1/orders/{id}/payment-status:
+    get:
+      summary: Lấy trạng thái thanh toán
+      description: Dùng cho frontend polling trạng thái thanh toán QR.
+      operationId: getPaymentStatus
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/orders/orders.controller.ts
+
+  /api/v1/orders/webhook/payment:
+    post:
+      summary: Webhook nhận trạng thái thanh toán
+      description: Dành cho cổng thanh toán cập nhật trạng thái đơn hàng (QR_CODE).
+      operationId: paymentWebhook
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: OK
+      x-implementation:
+        filePath: apps/backend/src/modules/orders/orders.controller.ts
