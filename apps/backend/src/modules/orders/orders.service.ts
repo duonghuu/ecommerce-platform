@@ -82,9 +82,35 @@ export class OrdersService {
       const shippingFee = 40000; // Hardcode for now based on plan
       let discountAmount = 0;
 
-      // Fake discount logic for TECHBITE200
-      if (dto.discountCode === 'TECHBITE200') {
-        discountAmount = 200000;
+      // Validate and apply coupon
+      if (dto.discountCode) {
+        const coupon = await tx.coupon.findUnique({
+          where: { code: dto.discountCode }
+        });
+
+        if (coupon && coupon.isActive && new Date() >= coupon.startDate && new Date() <= coupon.endDate) {
+          if (!coupon.usageLimit || coupon.usageCount < coupon.usageLimit) {
+             if (!coupon.minOrderValue || subTotal >= Number(coupon.minOrderValue)) {
+                if (coupon.discountType === 'PERCENTAGE') {
+                  discountAmount = (subTotal * Number(coupon.discountValue)) / 100;
+                  if (coupon.maxDiscount && discountAmount > Number(coupon.maxDiscount)) {
+                    discountAmount = Number(coupon.maxDiscount);
+                  }
+                } else {
+                  discountAmount = Number(coupon.discountValue);
+                }
+                if (discountAmount > subTotal) discountAmount = subTotal;
+
+                // Increase usage count
+                await tx.coupon.update({
+                  where: { id: coupon.id },
+                  data: { usageCount: { increment: 1 } }
+                });
+             }
+          }
+        } else {
+           dto.discountCode = undefined; // clear invalid code
+        }
       }
 
       const totalAmount = subTotal + shippingFee - discountAmount;

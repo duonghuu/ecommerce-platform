@@ -10,9 +10,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { MediasModule } from './modules/medias/medias.module';
 import { CartModule } from './modules/cart/cart.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { CouponsModule } from './modules/coupons/coupons.module';
 
 @Module({
-  imports: [PrismaModule, HomeModule, ProductsModule, CategoriesModule, BannersModule, AuthModule, MediasModule, CartModule, OrdersModule],
+  imports: [PrismaModule, HomeModule, ProductsModule, CategoriesModule, BannersModule, AuthModule, MediasModule, CartModule, OrdersModule, CouponsModule],
   controllers: [AppController],
   providers: [AppService],
 })

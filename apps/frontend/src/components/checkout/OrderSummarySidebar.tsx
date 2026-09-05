@@ -17,6 +17,9 @@ export interface OrderSummarySidebarProps {
   discountCode?: string;
   total: number;
   isSubmitting: boolean;
+  onApplyCoupon?: (code: string) => void;
+  couponError?: string;
+  isApplyingCoupon?: boolean;
 }
 
 export default function OrderSummarySidebar({
@@ -26,8 +29,12 @@ export default function OrderSummarySidebar({
   discountAmount,
   discountCode,
   total,
-  isSubmitting
+  isSubmitting,
+  onApplyCoupon,
+  couponError,
+  isApplyingCoupon
 }: OrderSummarySidebarProps) {
+  const [localCouponCode, setLocalCouponCode] = React.useState('');
   
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
@@ -64,9 +71,24 @@ export default function OrderSummarySidebar({
       <div className="mb-lg">
         <label className="text-label-md text-on-surface-variant block mb-2">Mã giảm giá</label>
         <div className="flex gap-xs">
-          <input className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2 outline-none transition-all focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" placeholder="Nhập mã ưu đãi..." type="text"/>
-          <button type="button" className="bg-slate-900 text-white px-md rounded-xl font-bold hover:bg-black transition-colors whitespace-nowrap">ÁP DỤNG</button>
+          <input
+            className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2 outline-none transition-all focus:border-primary-container focus:ring-2 focus:ring-primary-container/10"
+            placeholder="Nhập mã ưu đãi..."
+            type="text"
+            value={localCouponCode}
+            onChange={(e) => setLocalCouponCode(e.target.value)}
+            disabled={isApplyingCoupon || isSubmitting}
+          />
+          <button
+            type="button"
+            className="bg-slate-900 text-white px-md rounded-xl font-bold hover:bg-black transition-colors whitespace-nowrap disabled:opacity-50"
+            onClick={() => onApplyCoupon && onApplyCoupon(localCouponCode)}
+            disabled={!localCouponCode || isApplyingCoupon || isSubmitting}
+          >
+            {isApplyingCoupon ? 'ĐANG ÁP DỤNG...' : 'ÁP DỤNG'}
+          </button>
         </div>
+        {couponError && <p className="text-rose-500 text-sm mt-2">{couponError}</p>}
       </div>
 
       {/* Pricing Calculation */}

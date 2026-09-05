@@ -21,3 +21,4 @@
 - **2026-07-27 20:29**: Sửa lỗi trùng lặp prefix api/v1 trong CartController, khắc phục lỗi Cannot PUT/POST khi thao tác với giỏ hàng.
 - **2026-08-01 09:58**: Đã hoàn thành Frontend Plan và Design Brief cho trang Checkout, đồng thời khởi tạo thành công thiết kế giao diện trên Stitch.
 - 2026-08-02: Hoàn thành sửa lỗi Hydration ở UI thanh toán, tích hợp xong API Checkout (Guest/User) qua Server Actions, và hiển thị Modal thành công.
+- **2026-09-05 20:53**: Đã chạy Prisma migrations và seeder backend; cấu hình Next/Image hiển thị mã QR VietQR.

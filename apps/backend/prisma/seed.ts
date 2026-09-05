@@ -14,6 +14,7 @@ async function main() {
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
   await prisma.banner.deleteMany();
+  await prisma.coupon.deleteMany();
 
   console.log('Đang tạo dữ liệu mẫu...');
 
@@ -138,6 +139,31 @@ async function main() {
         stock: 200,
         salesCount: 500,
         isFeatured: true,
+      }
+    ]
+  });
+
+  // 4. Tạo Coupons
+  await prisma.coupon.createMany({
+    data: [
+      {
+        code: 'WELCOME10',
+        discountType: 'PERCENTAGE',
+        discountValue: 10,
+        minOrderValue: 50000,
+        maxDiscount: 20000,
+        startDate: new Date(),
+        endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+        isActive: true,
+      },
+      {
+        code: 'MINUS20K',
+        discountType: 'FIXED_AMOUNT',
+        discountValue: 20000,
+        minOrderValue: 100000,
+        startDate: new Date(),
+        endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+        isActive: true,
       }
     ]
   });

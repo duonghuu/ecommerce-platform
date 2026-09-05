@@ -9,7 +9,7 @@ import OrderSummarySidebar from './OrderSummarySidebar';
 import CheckoutModal, { OrderResponse } from './CheckoutModal';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '../../store/cartStore';
-import { createOrderServer } from '../../app/actions/checkout';
+import { createOrderServer, validateCouponServer } from '../../app/actions/checkout';
 
 const checkoutSchema = z.object({
   fullName: z.string().min(2, "Họ và tên phải có ít nhất 2 ký tự"),
@@ -39,11 +39,29 @@ export default function CheckoutClient({ initialData }: CheckoutClientProps) {
   const subTotal = useCartStore((state) => state.getSubtotal());
   const clearCart = useCartStore((state) => state.clearCart);
   
-  // Shipping and Discount simulation
+  // Shipping and Discount
   const shippingFee = 40000;
-  const discountAmount = 0;
-  const discountCode = '';
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [discountCode, setDiscountCode] = useState('');
+  const [couponError, setCouponError] = useState('');
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+
   const total = subTotal + shippingFee - discountAmount;
+
+  const handleApplyCoupon = async (code: string) => {
+    setCouponError('');
+    setIsApplyingCoupon(true);
+    const res = await validateCouponServer(code, subTotal);
+    if (res.success && res.data) {
+      setDiscountCode(res.data.code);
+      setDiscountAmount(res.data.discountAmount);
+    } else {
+      setCouponError(res.message);
+      setDiscountCode('');
+      setDiscountAmount(0);
+    }
+    setIsApplyingCoupon(false);
+  };
 
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -100,6 +118,7 @@ export default function CheckoutClient({ initialData }: CheckoutClientProps) {
       shippingMethod: data.shippingMethod,
       paymentMethod: data.paymentMethod,
       orderNotes: data.orderNotes || undefined,
+      discountCode: discountCode || undefined,
       guestItems: cartItems.map(item => ({
         productId: item.id,
         quantity: item.quantity
@@ -150,6 +169,9 @@ export default function CheckoutClient({ initialData }: CheckoutClientProps) {
               discountCode={discountCode}
               total={total}
               isSubmitting={isSubmitting}
+              onApplyCoupon={handleApplyCoupon}
+              couponError={couponError}
+              isApplyingCoupon={isApplyingCoupon}
             />
           )}
         </div>
