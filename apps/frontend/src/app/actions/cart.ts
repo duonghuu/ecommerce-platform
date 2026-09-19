@@ -34,7 +34,7 @@ export async function addCartItemServer(productId: string, quantity: number) {
     if (!res.ok) {
        return { success: false, message: json.message || 'Lỗi thêm sản phẩm' };
     }
-    revalidateTag('cart');
+    revalidateTag('cart', 'default');
     return { success: true, data: json.data };
   } catch (error) {
     return { success: false, message: 'Lỗi kết nối máy chủ' };
@@ -55,7 +55,7 @@ export async function updateCartItemServer(productId: string, quantity: number) 
     if (!res.ok) {
        return { success: false, message: json.message || 'Lỗi cập nhật sản phẩm' };
     }
-    revalidateTag('cart');
+    revalidateTag('cart', 'default');
     return { success: true, data: json.data };
   } catch (error) {
     return { success: false, message: 'Lỗi kết nối máy chủ' };
@@ -74,7 +74,7 @@ export async function removeCartItemServer(productId: string) {
     if (!res.ok) {
        return { success: false, message: json.message || 'Lỗi xóa sản phẩm' };
     }
-    revalidateTag('cart');
+    revalidateTag('cart', 'default');
     return { success: true, data: json.data };
   } catch (error) {
     return { success: false, message: 'Lỗi kết nối máy chủ' };
@@ -95,7 +95,7 @@ export async function syncCartServer(items: { productId: string, quantity: numbe
     });
     const json = await res.json();
     if (!res.ok) return { success: false, message: json.message };
-    revalidateTag('cart');
+    revalidateTag('cart', 'default');
     return { success: true, data: json.data };
   } catch (error) {
     return { success: false, message: 'Lỗi kết nối máy chủ' };

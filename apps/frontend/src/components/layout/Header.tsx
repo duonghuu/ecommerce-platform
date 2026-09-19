@@ -63,7 +63,7 @@ export default function Header() {
 
         {/* Navigation Links (Desktop) */}
         <div className="hidden lg:flex items-center gap-md">
-          <Link href="#" className="text-primary border-b-2 border-primary pb-1 font-label-md text-label-md">
+          <Link href="/products" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md">
             Menu
           </Link>
           <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md">
@@ -72,7 +72,7 @@ export default function Header() {
           <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md">
             Rewards
           </Link>
-          <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md">
+          <Link href="/profile/orders" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md">
             Orders
           </Link>
           <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md">
@@ -132,7 +132,7 @@ export default function Header() {
           <div className="flex md:hidden w-full mb-xs">
             <GlobalSearch isMobile={true} />
           </div>
-          <Link href="#" className="text-primary font-label-md text-label-md py-xs border-b border-surface-variant">
+          <Link href="/products" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md py-xs border-b border-surface-variant">
             Menu
           </Link>
           <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md py-xs border-b border-surface-variant">
@@ -141,7 +141,7 @@ export default function Header() {
           <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md py-xs border-b border-surface-variant">
             Rewards
           </Link>
-          <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md py-xs border-b border-surface-variant">
+          <Link href="/profile/orders" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md py-xs border-b border-surface-variant">
             Orders
           </Link>
           <Link href="#" className="text-secondary hover:text-primary transition-colors font-label-md text-label-md py-xs border-b border-surface-variant">

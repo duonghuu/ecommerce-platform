@@ -20,7 +20,7 @@ const checkoutSchema = z.object({
   shippingMethod: z.string(),
   paymentMethod: z.enum(['COD', 'QR_CODE']),
   termsAccepted: z.literal(true, {
-    errorMap: () => ({ message: "Vui lòng đồng ý với điều khoản dịch vụ" })
+    message: "Vui lòng đồng ý với điều khoản dịch vụ"
   })
 });
 

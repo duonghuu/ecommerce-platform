@@ -22,3 +22,6 @@
 - **2026-08-01 09:58**: Đã hoàn thành Frontend Plan và Design Brief cho trang Checkout, đồng thời khởi tạo thành công thiết kế giao diện trên Stitch.
 - 2026-08-02: Hoàn thành sửa lỗi Hydration ở UI thanh toán, tích hợp xong API Checkout (Guest/User) qua Server Actions, và hiển thị Modal thành công.
 - **2026-09-05 20:53**: Đã chạy Prisma migrations và seeder backend; cấu hình Next/Image hiển thị mã QR VietQR.
+- **2026-09-19 10:55**: Hoàn thành tính năng Lịch sử đơn hàng: Viết API lấy đơn hàng theo user phân trang và chi tiết đơn hàng (NestJS), bổ sung seeder 15 đơn hàng mẫu vào database, tích hợp hiển thị 5 đơn hàng mới nhất trên trang Profile, xây dựng trang Lịch sử đơn hàng (/orders) phân trang 10 items/trang và trang Chi tiết đơn hàng (/orders/[id]).
+- **2026-09-19 11:15**: Tích hợp toàn bộ Trang Lịch sử đơn hàng (/profile/orders) và Trang Chi tiết đơn hàng (/profile/orders/[id]) vào Master Layout chung của trang Profile, duy trì cột điều hướng bên trái (ProfileNav) nhất quán và tự động highlight tab đang chọn.
+- **2026-09-19 13:55**: Hoàn thành API đơn hàng (NestJS), seeder mẫu, tích hợp 5 đơn gần nhất vào Profile và xây dựng giao diện Lịch sử đơn hàng phân trang cùng Chi tiết đơn hàng trong Profile layout.

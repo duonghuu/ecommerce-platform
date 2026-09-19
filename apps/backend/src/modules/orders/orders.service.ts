@@ -1,7 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { PaymentMethod, OrderStatus, PaymentStatus } from '@prisma/client';
+import { PaymentMethod, OrderStatus, PaymentStatus, Order, OrderItem } from '@prisma/client';
+import { PaginatedOrdersResponse, PaymentWebhookBody } from './interfaces/order.interface';
 
 @Injectable()
 export class OrdersService {
@@ -171,22 +172,65 @@ export class OrdersService {
     });
   }
 
-  async getOrder(id: string) {
-    const order = await this.prisma.order.findUnique({
-      where: { id },
-      include: { items: true },
+  async getMyOrders(userId: string, page = 1, limit = 10): Promise<PaginatedOrdersResponse> {
+    const validPage = Math.max(1, page);
+    const validLimit = Math.max(1, Math.min(100, limit));
+    const skip = (validPage - 1) * validLimit;
+
+    const [items, total] = await Promise.all([
+      this.prisma.order.findMany({
+        where: { userId },
+        include: {
+          items: true,
+        },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: validLimit,
+      }),
+      this.prisma.order.count({
+        where: { userId },
+      }),
+    ]);
+
+    return {
+      items,
+      pagination: {
+        total,
+        page: validPage,
+        limit: validLimit,
+        totalPages: Math.ceil(total / validLimit) || 1,
+      },
+    };
+  }
+
+  async getOrder(id: string, userId?: string, userRole?: string): Promise<Order & { items: OrderItem[] }> {
+    const order = await this.prisma.order.findFirst({
+      where: {
+        OR: [{ id }, { code: id }],
+      },
+      include: {
+        items: true,
+      },
     });
 
     if (!order) {
       throw new NotFoundException('Không tìm thấy đơn hàng');
     }
 
+    if (userId && userRole !== 'ADMIN' && userRole !== 'STAFF') {
+      if (order.userId && order.userId !== userId) {
+        throw new ForbiddenException('Bạn không có quyền xem đơn hàng này');
+      }
+    }
+
     return order;
   }
 
   async getPaymentStatus(id: string) {
-    const order = await this.prisma.order.findUnique({
-      where: { id },
+    const order = await this.prisma.order.findFirst({
+      where: {
+        OR: [{ id }, { code: id }],
+      },
       select: { paymentStatus: true, status: true },
     });
 
@@ -197,7 +241,7 @@ export class OrdersService {
     return order;
   }
 
-  async handlePaymentWebhook(body: any) {
+  async handlePaymentWebhook(body: PaymentWebhookBody) {
     const { orderCode, status } = body;
 
     if (status === 'SUCCESS') {
@@ -205,7 +249,7 @@ export class OrdersService {
         where: { code: orderCode },
         data: {
           paymentStatus: PaymentStatus.PAID,
-          status: OrderStatus.CONFIRMED
+          status: OrderStatus.CONFIRMED,
         },
       });
       return { success: true, orderId: order.id };
